@@ -3,6 +3,7 @@ type Forum = {
     title: string;
     description: string;
     createdAt: Date;
+    author: string;
 };
 
 export default Forum;

@@ -9,18 +9,21 @@ const Home: React.FC = () => {
             title: "Welcome to Our Community Forum",
             description: "This is a space for community discussions, questions, and sharing your experiences.",
             createdAt: new Date("2023-12-01T09:00:00"),
+            author: "Tom",
         },
         {
             id: 102,
             title: "Tips for Effective Online Learning",
             description: "Share and learn tips about how to make the most out of online courses.",
-            createdAt: new Date("2023-12-05T15:30:00"),
+            createdAt: new Date("2023-12-19T15:30:00"),
+            author: "Dick",
         },
         {
             id: 103,
             title: "Upcoming Webinar on Web Development",
             description: "Join us for a webinar on the latest trends in web development. Open for all skill levels.",
             createdAt: new Date("2023-12-10T11:00:00"),
+            author: "Harry",
         },
     ];
     return (

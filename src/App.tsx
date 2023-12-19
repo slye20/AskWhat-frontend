@@ -1,4 +1,4 @@
-// import Home from "./pages/Home";
+import Home from "./pages/Home";
 import BasicThreadView from "./pages/BasicThreadView";
 import IndividualThreadView from "./pages/IndividualThreadView";
 import React from "react";
@@ -22,8 +22,8 @@ const App: React.FC = () => {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/thread/1" element={<BasicThreadView />} />
-                        <Route path="/" element={<IndividualThreadView />} />
-                        {/* <Route path="/" element={<Home />} /> */}
+                        <Route path="/thread" element={<IndividualThreadView />} />
+                        <Route path="/" element={<Home />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>

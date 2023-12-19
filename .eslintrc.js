@@ -22,6 +22,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "plugin:prettier/recommended",
         "plugin:import/recommended",
+        "plugin:import/typescript",
     ],
     globals: {
         Atomics: "readonly",

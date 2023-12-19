@@ -59,7 +59,7 @@ const StyledThreadView: React.FC = () => {
                 </CardContent>
             </Card>
 
-            <BasicCommentList styled={true} comments={comments} />
+            <BasicCommentList comments={comments} />
             <MakeComment onAddComment={handleAddComment} />
         </div>
     );

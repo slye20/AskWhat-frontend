@@ -18,22 +18,26 @@ const ForumCard: React.FC<Props> = ({ thread }) => {
             sx={{
                 borderStyle: "solid",
                 borderWidth: 1,
-                borderColor: "orange",
-                padding: 3,
+                borderColor: "primary.main",
+                padding: 2,
                 margin: 1,
                 bgcolor: "background.paper",
+                "&:hover": {
+                    bgcolor: "background.default",
+                    boxShadow: 2,
+                },
             }}
         >
             <ListItemAvatar>
-                <Avatar></Avatar>
+                <Avatar>{thread.author[0].toUpperCase()}</Avatar>
             </ListItemAvatar>
             <Box>
                 <ListItemText primary={thread.title} secondary={thread.description} />
                 <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
-                    <Typography sx={{ fontSize: "10px", marginX: 1, paddingX: 1, bgcolor: "lightgray" }}>
+                    <Typography variant="caption" sx={{ bgcolor: "secondary.light", px: 1, borderRadius: 1 }}>
                         {thread.author}
                     </Typography>
-                    <Typography sx={{ fontSize: "10px", marginX: 1, paddingX: 1, bgcolor: "lightgray" }}>
+                    <Typography variant="caption" sx={{ ml: 1, bgcolor: "secondary.light", px: 1, borderRadius: 1 }}>
                         {dayjs(thread.createdAt).fromNow()}
                     </Typography>
                 </Box>

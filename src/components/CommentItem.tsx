@@ -1,7 +1,7 @@
 import Comment from "../types/Comment";
 
 import React from "react";
-import { Card, CardContent, Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, Divider, Typography } from "@mui/material";
 
 type Props = {
     comment: Comment;
@@ -9,17 +9,24 @@ type Props = {
 const CommentItem: React.FC<Props> = ({ comment }) => {
     const dateTimeObject = new Date(comment.created_at);
     return (
-        <Card sx={{ marginBottom: "1em" }}>
+        <Card sx={{ marginBottom: 2, boxShadow: 1 }}>
             <CardContent>
+                <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+                    <Avatar sx={{ marginRight: 1 }}>{comment.author[0]}</Avatar>
+                    <Typography variant="subtitle2" color="textSecondary">
+                        {comment.author}
+                    </Typography>
+                </Box>
                 <Typography
                     variant="body2"
                     color="textPrimary"
-                    sx={{ fontSize: 16, whiteSpace: "pre-wrap", paddingBottom: "1em", textAlign: "center" }}
+                    sx={{ fontSize: 16, whiteSpace: "pre-wrap", paddingBottom: "1em", textAlign: "left" }}
                 >
                     {comment.content}
                 </Typography>
-                <Typography color="textSecondary" sx={{ fontSize: 14 }} gutterBottom>
-                    {"Posted by " + comment.author + " on " + dateTimeObject.toLocaleString()}
+                <Divider />
+                <Typography variant="caption" color="textSecondary">
+                    {"Posted " + dateTimeObject.toLocaleString()}
                 </Typography>
             </CardContent>
         </Card>

@@ -1,7 +1,7 @@
 type Comment = {
-    body: string;
+    content: string;
     author: string;
-    timestamp: Date;
+    created_at: Date;
     key: number;
 };
 

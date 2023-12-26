@@ -14,7 +14,7 @@ const ForumCard: React.FC<Props> = ({ thread }) => {
     dayjs.extend(relativeTime);
     return (
         <ListItemButton
-            onClick={() => navigate("/thread")}
+            onClick={() => navigate(`/thread/${thread.id}`)}
             sx={{
                 borderStyle: "solid",
                 borderWidth: 1,

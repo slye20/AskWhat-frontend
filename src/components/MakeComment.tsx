@@ -24,12 +24,12 @@ const MakeComment: React.FC<Props> = ({ onAddComment }: Props) => {
             return;
         }
 
-        onAddComment({
-            body: text,
-            author: username,
-            timestamp: new Date(),
-            key: 999,
-        });
+        // onAddComment({
+        //     body: text,
+        //     author: username,
+        //     timestamp: new Date(),
+        //     key: 999,
+        // });
 
         setFormData({ ...formData, text: "" });
     };

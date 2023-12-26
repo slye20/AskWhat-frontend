@@ -1,31 +1,25 @@
 import ForumList from "../components/ForumList";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
-    const threads = [
-        {
-            id: 101,
-            title: "Welcome to Our Community Forum",
-            description: "This is a space for community discussions, questions, and sharing your experiences.",
-            createdAt: new Date("2023-12-01T09:00:00"),
-            author: "Tom",
-        },
-        {
-            id: 102,
-            title: "Tips for Effective Online Learning",
-            description: "Share and learn tips about how to make the most out of online courses.",
-            createdAt: new Date("2023-12-19T15:30:00"),
-            author: "Dick",
-        },
-        {
-            id: 103,
-            title: "Upcoming Webinar on Web Development",
-            description: "Join us for a webinar on the latest trends in web development. Open for all skill levels.",
-            createdAt: new Date("2023-12-10T11:00:00"),
-            author: "Harry",
-        },
-    ];
+    const navigate = useNavigate();
+    const [threads, setThreads] = useState([]);
+
+    useEffect(() => {
+        const url = "http://localhost:3000/forum_threads";
+        fetch(url)
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then((t) => setThreads(t))
+            .catch(() => navigate("/"));
+    }, []);
+
     return (
         <>
             <Typography variant="h5" component="h5" marginTop={2}>

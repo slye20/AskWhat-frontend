@@ -1,4 +1,4 @@
-type Forum = {
+type Thread = {
     id: number;
     title: string;
     description: string;
@@ -6,4 +6,4 @@ type Forum = {
     author: string;
 };
 
-export default Forum;
+export default Thread;

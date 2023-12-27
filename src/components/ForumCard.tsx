@@ -1,4 +1,4 @@
-import Forum from "../types/Forum";
+import Thread from "../types/Thread";
 import { ListItemAvatar, ListItemText, ListItemButton, Avatar, Box, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 type Props = {
-    thread: Forum;
+    thread: Thread;
 };
 
 const ForumCard: React.FC<Props> = ({ thread }) => {

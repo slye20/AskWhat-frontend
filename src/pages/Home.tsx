@@ -1,7 +1,7 @@
 import ForumList from "../components/ForumList";
 import React, { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -25,9 +25,11 @@ const Home: React.FC = () => {
             <Typography variant="h5" component="h5" marginTop={2}>
                 {"Threads"}
             </Typography>
-            <Button color="secondary" variant="contained" style={{ marginTop: "10px" }}>
-                New Thread
-            </Button>
+            <Link to="/submit">
+                <Button color="secondary" variant="contained" style={{ marginTop: "10px" }}>
+                    New Thread
+                </Button>
+            </Link>
             <ForumList threads={threads} />
             <Button color="secondary" variant="contained" style={{ margin: "10px 20px" }}>
                 Show More

@@ -1,10 +1,10 @@
 import ForumCard from "./ForumCard";
-import Forum from "../types/Forum";
+import Thread from "../types/Thread";
 import React from "react";
 import { List } from "@mui/material";
 
 type Props = {
-    threads: Forum[];
+    threads: Thread[];
 };
 
 const ForumList: React.FC<Props> = ({ threads }) => {

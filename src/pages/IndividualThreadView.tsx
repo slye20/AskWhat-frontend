@@ -1,6 +1,6 @@
-// import MakeComment from "../components/MakeComment";
+import MakeComment from "../components/MakeComment";
 import BasicCommentList from "../components/CommentList";
-// import Comment from "../types/Comment";
+import Comment from "../types/Comment";
 import { Button, Typography } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 const StyledThreadView: React.FC = () => {
     const { threadId } = useParams();
     const navigate = useNavigate();
-    const [result, setResult] = useState({ title: "", posts: [] });
+    const [result, setResult] = useState<{ title: string; posts: Comment[] }>({ title: "", posts: [] });
 
     useEffect(() => {
         const url = `http://localhost:3000/posts/${threadId}`;
@@ -23,9 +23,12 @@ const StyledThreadView: React.FC = () => {
             .catch(() => navigate("/"));
     }, []);
 
-    // const handleAddComment = (newComment: Comment) => {
-    //     setPosts([...posts, newComment]);
-    // };
+    const handleAddComment = (newComment: Comment) => {
+        setResult({
+            ...result,
+            posts: [...result.posts, newComment],
+        });
+    };
 
     return (
         <div style={{ width: "80vw", margin: "auto" }}>
@@ -55,7 +58,7 @@ const StyledThreadView: React.FC = () => {
                 {result.title}
             </Typography>
             <BasicCommentList comments={result.posts} />
-            {/* <MakeComment onAddComment={handleAddComment} /> */}
+            <MakeComment onAddComment={handleAddComment} />
         </div>
     );
 };

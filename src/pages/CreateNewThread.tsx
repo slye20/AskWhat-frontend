@@ -1,37 +1,25 @@
-import Comment from "../types/Comment";
-import "../App.css";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
 
-type Props = {
-    onAddComment: (newComment: Comment) => void;
-};
+const CreateThread: React.FC = () => {
+    const [formData, setFormData] = useState({ title: "", text: "", username: "" });
+    const [errors, setErrors] = useState({ title: false, username: false }); // error if content is empty
 
-const MakeComment: React.FC<Props> = ({ onAddComment }: Props) => {
-    const [formData, setFormData] = useState({ text: "", username: "" });
-    const [errors, setErrors] = useState({ text: false, username: false }); // error if content is empty
-
-    // When submit button is pressed, add comment, clear inputs
+    // When submit button is pressed, add thread, reroute to new thread
     const handleSubmit = (event: FormEvent) => {
         // prevent page from refreshing
         event.preventDefault();
-        const { text, username } = formData;
-        const newErrors = { text: !text.trim(), username: !username.trim() };
+        console.log(formData);
+        const { title, username } = formData;
+        const newErrors = { title: !title.trim(), username: !username.trim() };
 
-        if (newErrors.text || newErrors.username) {
+        if (newErrors.title || newErrors.username) {
             setErrors(newErrors);
             return;
         }
 
-        onAddComment({
-            content: text,
-            author: username,
-            created_at: new Date(),
-            key: 999,
-        });
-
-        setFormData({ ...formData, text: "" });
+        setFormData({ ...formData, title: "", text: "" });
     };
 
     const handleChange = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,33 +28,46 @@ const MakeComment: React.FC<Props> = ({ onAddComment }: Props) => {
     };
 
     return (
-        <div style={{ margin: "auto", textAlign: "center" }}>
+        <div style={{ margin: "auto", textAlign: "center", width: "80vw" }}>
+            <Typography variant="h5" component="h5" marginTop={2}>
+                {"Threads"}
+            </Typography>
+
             <form onSubmit={(event) => handleSubmit(event)}>
                 <TextField
-                    error={errors.text}
-                    helperText={errors.text ? "This field cannot be empty." : ""}
+                    error={errors.title}
+                    helperText={errors.title ? "This field cannot be empty." : ""}
+                    onChange={handleChange("title")}
+                    label="Title"
+                    fullWidth={true}
+                    size="small"
+                    value={formData.title}
+                    sx={{ m: 1 }}
+                />
+                <br />
+                <TextField
                     onChange={handleChange("text")}
-                    label="New Post?"
+                    label="Details (Optional)"
                     multiline
                     rows={4}
                     placeholder="Share your thoughts!"
                     fullWidth={true}
                     size="small"
                     value={formData.text}
+                    sx={{ m: 1 }}
                 />
                 <br />
                 <Box
                     sx={{
                         display: "flex",
                         flexDirection: "row",
-                        p: 1,
                         m: 1,
                         bgcolor: "background.paper",
                         borderRadius: 1,
                         justifyContent: "center",
                     }}
                 >
-                    <Box style={{ margin: "10px 20px" }}>
+                    <Box>
                         <TextField
                             error={errors.username}
                             helperText={errors.username ? "This field cannot be empty." : ""}
@@ -75,13 +76,13 @@ const MakeComment: React.FC<Props> = ({ onAddComment }: Props) => {
                         />
                         <TextField label="Password (Optional)" type="password" name="password" />
                     </Box>
-                    <Button color="warning" variant="contained" type="submit" style={{ margin: "10px 20px" }}>
-                        post
-                    </Button>
                 </Box>
+                <Button color="warning" variant="contained" type="submit" sx={{ m: 1 }}>
+                    Submit
+                </Button>
             </form>
         </div>
     );
 };
 
-export default MakeComment;
+export default CreateThread;

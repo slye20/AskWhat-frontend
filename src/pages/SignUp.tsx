@@ -5,32 +5,42 @@ import { useNavigate } from "react-router-dom";
 
 const SignUp: React.FC = () => {
     const [user, setUser] = useState({ username: "", password: "", email: "" });
-    const [errors, setErrors] = useState({
-        username: false,
-        password: false,
-        email: false,
-    }); // error if content is empty
+    const [error, setError] = useState("");
 
     // When submit button is pressed, add thread, reroute to new thread
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault(); // prevent page from refreshing
-        console.log(user);
-        const { username, password, email } = user;
-        const newErrors = {
-            password: !password.trim(),
-            username: !username.trim(),
-            email: !email.trim(),
-        };
 
-        if (newErrors.password || newErrors.username || newErrors.email) {
-            setErrors(newErrors);
-            return;
-        }
+        fetch("http://localhost:3000/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user }),
+            credentials: "include",
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else if (res.status === 406) {
+                    // 406 not acceptable
+                    return res.json().then((err) => {
+                        throw new Error(err.error.join("\n"));
+                    });
+                } else {
+                    throw new Error("An error occurred. Please try again later.");
+                }
+            })
+            .then((data) => {
+                localStorage.setItem("jwt", data.jwt);
+                navigate(`/`);
+            })
+            .catch((error) => setError(error.message));
     };
 
     const handleChange = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
         setUser({ ...user, [field]: event.target.value });
-        setErrors({ ...errors, [field]: false });
+        setError("");
     };
 
     const navigate = useNavigate();
@@ -54,31 +64,18 @@ const SignUp: React.FC = () => {
                         flexDirection: "column",
                     }}
                 >
+                    <TextField name="username" label="Username" onChange={handleChange("username")} sx={{ m: 1 }} />
+                    <TextField name="email" label="Email" onChange={handleChange("email")} sx={{ m: 1 }} />
                     <TextField
-                        error={errors.username}
-                        helperText={errors.username ? "This field cannot be empty." : ""}
-                        name="username"
-                        label="Username"
-                        onChange={handleChange("username")}
-                        sx={{ m: 1 }}
-                    />
-                    <TextField
-                        error={errors.email}
-                        helperText={errors.email ? "This field cannot be empty." : ""}
-                        name="email"
-                        label="Email"
-                        onChange={handleChange("email")}
-                        sx={{ m: 1 }}
-                    />
-                    <TextField
-                        error={errors.password}
-                        helperText={errors.password ? "This field cannot be empty." : ""}
                         name="password"
                         label="Password"
                         type="password"
                         onChange={handleChange("password")}
                         sx={{ m: 1 }}
                     />
+
+                    {error && <div style={{ color: "red", margin: "10px 0", whiteSpace: "pre-line" }}>{error}</div>}
+
                     <Button color="warning" variant="contained" type="submit" sx={{ m: 1 }}>
                         Sign Up
                     </Button>

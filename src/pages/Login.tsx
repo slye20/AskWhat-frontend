@@ -11,13 +11,6 @@ const Login: React.FC = () => {
     const handleSubmit = (event: FormEvent) => {
         // prevent page from refreshing
         event.preventDefault();
-        const { username, password } = user;
-
-        // Check for empty fields
-        if (!username.trim() || !password.trim()) {
-            setError("Username or Password cannot be empty.");
-            return;
-        }
 
         fetch("http://localhost:3000/login", {
             method: "POST",
@@ -32,7 +25,12 @@ const Login: React.FC = () => {
                     return res.json();
                 } else if (res.status === 401) {
                     // Handle 401 Unauthorized response
-                    throw new Error("Unauthorized access. Please check your credentials.");
+                    throw new Error("Invalid username or password");
+                } else if (res.status === 422) {
+                    // 406 unprocessable_entity
+                    return res.json().then((err) => {
+                        throw new Error(err.error.join("\n"));
+                    });
                 } else {
                     throw new Error("An error occurred. Please try again later.");
                 }
@@ -86,7 +84,7 @@ const Login: React.FC = () => {
                         sx={{ m: 1 }}
                     />
 
-                    {error && <div style={{ color: "red", margin: "10px 0" }}>{error}</div>}
+                    {error && <div style={{ color: "red", margin: "10px 0", whiteSpace: "pre-line" }}>{error}</div>}
 
                     <Button color="warning" variant="contained" type="submit" sx={{ m: 1 }}>
                         Log In

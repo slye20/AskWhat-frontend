@@ -61,13 +61,14 @@ const CreateThread: React.FC = () => {
                     sx={{
                         display: "flex",
                         flexDirection: "row",
+                        p: 1,
                         m: 1,
                         bgcolor: "background.paper",
                         borderRadius: 1,
                         justifyContent: "center",
                     }}
                 >
-                    <Box>
+                    <Box style={{ margin: "10px 20px" }}>
                         <TextField
                             error={errors.username}
                             helperText={errors.username ? "This field cannot be empty." : ""}

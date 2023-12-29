@@ -9,7 +9,12 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         const url = "http://localhost:3000/forum_threads";
-        fetch(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.jwt}`,
+            },
+        })
             .then((res) => {
                 if (res.ok) {
                     return res.json();
@@ -22,6 +27,14 @@ const Home: React.FC = () => {
 
     return (
         <>
+            <Button
+                color="secondary"
+                variant="contained"
+                style={{ marginTop: "10px" }}
+                onClick={() => localStorage.removeItem("jwt")} // to log out
+            >
+                Sign Out
+            </Button>
             <Typography variant="h5" component="h5" marginTop={2}>
                 {"Threads"}
             </Typography>

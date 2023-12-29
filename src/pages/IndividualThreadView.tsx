@@ -12,7 +12,12 @@ const StyledThreadView: React.FC = () => {
 
     useEffect(() => {
         const url = `http://localhost:3000/posts/${threadId}`;
-        fetch(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.jwt}`,
+            },
+        })
             .then((res) => {
                 if (res.ok) {
                     return res.json();

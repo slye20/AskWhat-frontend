@@ -14,17 +14,19 @@ import {
 } from "@mui/material";
 
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-type FormData = {
+type Thread = {
     title: string;
-    text: string;
+    content: string;
     categories: string[];
 };
 
 const CreateThread: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
-    const [formData, setFormData] = useState<FormData>({ title: "", text: "", categories: [] });
-    const [errors, setErrors] = useState(""); // error if content is empty
+    const [thread, setThread] = useState<Thread>({ title: "", content: "", categories: [] });
+    const [error, setError] = useState(""); // error if content is empty
+    const navigate = useNavigate();
 
     useEffect(() => {
         const url = `http://localhost:3000/categories`;
@@ -42,24 +44,49 @@ const CreateThread: React.FC = () => {
     const handleSubmit = (event: FormEvent) => {
         // prevent page from refreshing
         event.preventDefault();
-        console.log(formData);
+        console.log(JSON.stringify({ thread }));
+
+        fetch("http://localhost:3000/forum_threads/", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.jwt}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ thread }),
+            credentials: "include",
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else if (res.status === 406) {
+                    // 406 not acceptable
+                    return res.json().then((err) => {
+                        throw new Error(err.error.join("\n"));
+                    });
+                } else {
+                    throw new Error("An error occurred. Please try again later.");
+                }
+            })
+            .then((data) => {
+                localStorage.setItem("jwt", data.jwt);
+                navigate(`/`);
+            })
+            .catch((error) => setError(error.message));
     };
 
     const handleChange = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [field]: event.target.value });
-        setErrors("");
+        setThread({ ...thread, [field]: event.target.value });
+        setError("");
     };
 
     const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
-        setFormData({ ...formData, categories: event.target.value as string[] });
+        setThread({ ...thread, categories: event.target.value as string[] });
     };
-
-    errors; //remove
 
     return (
         <div style={{ margin: "auto", textAlign: "center", width: "80vw" }}>
             <Typography variant="h5" component="h5" marginTop={2}>
-                {"Threads"}
+                {"Create New Thread"}
             </Typography>
 
             <form onSubmit={(event) => handleSubmit(event)}>
@@ -68,26 +95,26 @@ const CreateThread: React.FC = () => {
                     label="Title"
                     fullWidth={true}
                     size="small"
-                    value={formData.title}
+                    value={thread.title}
                     sx={{ m: 1 }}
                 />
                 <br />
                 <TextField
-                    onChange={handleChange("text")}
-                    label="Details (Optional)"
+                    onChange={handleChange("content")}
+                    label="Details"
                     multiline
                     rows={4}
                     placeholder="Share your thoughts!"
                     fullWidth={true}
                     size="small"
-                    value={formData.text}
+                    value={thread.content}
                     sx={{ m: 1 }}
                 />
                 <FormControl fullWidth sx={{ m: 1 }}>
                     <InputLabel id="category-select-label">Categories</InputLabel>
                     <Select
                         multiple
-                        value={formData.categories}
+                        value={thread.categories}
                         onChange={handleSelectChange}
                         input={<OutlinedInput label="Categories" />}
                         renderValue={(selected) => selected.join(", ")}
@@ -95,13 +122,14 @@ const CreateThread: React.FC = () => {
                     >
                         {categories.map((category) => (
                             <MenuItem value={category.name} key={category.name}>
-                                <Checkbox checked={formData.categories.indexOf(category.name) > -1} />
+                                <Checkbox checked={thread.categories.indexOf(category.name) > -1} />
                                 <ListItemText primary={category.name} />
                             </MenuItem>
                         ))}
                     </Select>
                 </FormControl>
                 <br />
+                {error && <div style={{ color: "red", margin: "10px 0", whiteSpace: "pre-line" }}>{error}</div>}
                 <Button color="warning" variant="contained" type="submit" sx={{ m: 1 }}>
                     Submit
                 </Button>

@@ -58,6 +58,9 @@ const CreateThread: React.FC = () => {
             .then((res) => {
                 if (res.ok) {
                     return res.json();
+                } else if (res.status === 401) {
+                    // 401 unauthorized
+                    navigate("/login");
                 } else if (res.status === 406) {
                     // 406 not acceptable
                     return res.json().then((err) => {

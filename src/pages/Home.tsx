@@ -27,7 +27,10 @@ const Home: React.FC = () => {
                 color="secondary"
                 variant="contained"
                 style={{ marginTop: "10px" }}
-                onClick={() => localStorage.removeItem("jwt")} // to log out
+                onClick={() => {
+                    localStorage.removeItem("jwt");
+                    localStorage.removeItem("username");
+                }} // to log out
             >
                 Sign Out
             </Button>

@@ -37,6 +37,7 @@ const Login: React.FC = () => {
             })
             .then((data) => {
                 localStorage.setItem("jwt", data.jwt);
+                localStorage.setItem("username", user.username);
                 navigate(`/`);
             })
             .catch((error) => setError(error.message));

@@ -11,7 +11,7 @@ const BasicCommentList: React.FC<Props> = ({ comments }) => {
     return (
         <ul>
             {comments.map((comment) => (
-                <CommentItem comment={comment} key="" />
+                <CommentItem comment={comment} key={comment.id} />
             ))}
         </ul>
     );

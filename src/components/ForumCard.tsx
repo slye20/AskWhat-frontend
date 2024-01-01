@@ -39,7 +39,7 @@ const ForumCard: React.FC<Props> = ({ thread }) => {
                                     {thread.author}
                                 </Typography>
                             </ListItemAvatar>
-                            <ListItemText primary={thread.title} secondary={thread.description} />
+                            <ListItemText primary={thread.title} secondary={thread.content} />
                         </Grid>
                         <Grid item>
                             <Typography variant="caption">{"Tags: " + thread.categories.join(" | ")}</Typography>

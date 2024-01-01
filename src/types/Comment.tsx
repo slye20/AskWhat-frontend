@@ -2,7 +2,7 @@ type Comment = {
     content: string;
     author: string;
     created_at: Date;
-    key: number;
+    id: number;
 };
 
 export default Comment;

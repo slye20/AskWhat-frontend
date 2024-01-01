@@ -1,17 +1,5 @@
 import Category from "../types/Category";
-import {
-    Button,
-    Checkbox,
-    FormControl,
-    InputLabel,
-    ListItemText,
-    MenuItem,
-    OutlinedInput,
-    Select,
-    SelectChangeEvent,
-    TextField,
-    Typography,
-} from "@mui/material";
+import { Button, Checkbox, TextField, Typography, Autocomplete } from "@mui/material";
 
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +32,6 @@ const CreateThread: React.FC = () => {
     const handleSubmit = (event: FormEvent) => {
         // prevent page from refreshing
         event.preventDefault();
-        console.log(JSON.stringify({ thread }));
 
         fetch("http://localhost:3000/forum_threads/", {
             method: "POST",
@@ -61,9 +48,10 @@ const CreateThread: React.FC = () => {
                 } else if (res.status === 401) {
                     // 401 unauthorized
                     navigate("/login");
-                } else if (res.status === 406) {
+                } else if (res.status === 406 || res.status === 422) {
                     // 406 not acceptable
                     return res.json().then((err) => {
+                        console.log(err);
                         throw new Error(err.error.join("\n"));
                     });
                 } else {
@@ -82,8 +70,9 @@ const CreateThread: React.FC = () => {
         setError("");
     };
 
-    const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
-        setThread({ ...thread, categories: event.target.value as string[] });
+    const handleSelectChange = (val: string[]) => {
+        console.log(val);
+        setThread({ ...thread, categories: val });
     };
 
     return (
@@ -113,25 +102,22 @@ const CreateThread: React.FC = () => {
                     value={thread.content}
                     sx={{ m: 1 }}
                 />
-                <FormControl fullWidth sx={{ m: 1 }}>
-                    <InputLabel id="category-select-label">Categories</InputLabel>
-                    <Select
-                        multiple
-                        value={thread.categories}
-                        onChange={handleSelectChange}
-                        input={<OutlinedInput label="Categories" />}
-                        renderValue={(selected) => selected.join(", ")}
-                        labelId="category-select-label"
-                    >
-                        {categories.map((category) => (
-                            <MenuItem value={category.name} key={category.name}>
-                                <Checkbox checked={thread.categories.indexOf(category.name) > -1} />
-                                <ListItemText primary={category.name} />
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                <br />
+                <Autocomplete
+                    multiple
+                    options={categories}
+                    onChange={(_, val) => handleSelectChange(val.map((item) => item.name))}
+                    disableCloseOnSelect
+                    getOptionLabel={(option) => option.name}
+                    renderOption={(props, option, { selected }) => (
+                        <li {...props}>
+                            <Checkbox checked={selected} />
+                            {option.name}
+                        </li>
+                    )}
+                    renderInput={(params) => <TextField {...params} label="Categories" />}
+                    sx={{ m: 1 }}
+                    fullWidth
+                />
                 {error && <div style={{ color: "red", margin: "10px 0", whiteSpace: "pre-line" }}>{error}</div>}
                 <Button color="warning" variant="contained" type="submit" sx={{ m: 1 }}>
                     Submit

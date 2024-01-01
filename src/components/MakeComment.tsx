@@ -28,7 +28,7 @@ const MakeComment: React.FC<Props> = ({ onAddComment }: Props) => {
             content: text,
             author: username,
             created_at: new Date(),
-            key: 999,
+            id: 999,
         });
 
         setFormData({ ...formData, text: "" });

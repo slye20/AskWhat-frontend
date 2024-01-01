@@ -1,8 +1,9 @@
+import MainPost from "../components/MainPost";
 import MakeComment from "../components/MakeComment";
 import BasicCommentList from "../components/CommentList";
 import Comment from "../types/Comment";
 import Thread from "../types/Thread";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
@@ -44,9 +45,7 @@ const StyledThreadView: React.FC = () => {
             <Button variant="contained" color="secondary" style={{ margin: "10px 20px" }} onClick={() => navigate("/")}>
                 {"Back to threads"}
             </Button>
-            <Typography variant="h5" component="h5">
-                {result.thread?.title}
-            </Typography>
+            <MainPost thread={result.thread} />
             <BasicCommentList comments={result.comments} />
             <MakeComment onAddComment={handleAddComment} />
         </div>

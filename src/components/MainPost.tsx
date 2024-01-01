@@ -1,13 +1,13 @@
-import Comment from "../types/Comment";
-
+import Thread from "../types/Thread";
+import { Box, Card, CardContent, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import React from "react";
-import { Avatar, Box, Card, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-type Props = {
-    comment: Comment;
+type Prop = {
+    thread?: Thread;
 };
-const CommentItem: React.FC<Props> = ({ comment }) => {
+
+const MainPost: React.FC<Prop> = ({ thread }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -17,15 +17,15 @@ const CommentItem: React.FC<Props> = ({ comment }) => {
         setAnchorEl(null);
     };
 
-    const dateTimeObject = new Date(comment.created_at);
+    const dateTimeObject = thread ? new Date(thread.created_at) : new Date();
+
     return (
-        <Card sx={{ marginBottom: 2, boxShadow: 1, p: 2 }}>
+        <Card variant="outlined" sx={{ marginBottom: 2, boxShadow: 1 }}>
             <CardHeader
-                sx={{ p: 0 }}
-                avatar={<Avatar>{comment.author[0]}</Avatar>}
                 action={
+                    // Menu only shows if username match author's name
                     <>
-                        {localStorage.getItem("username") === comment.author && (
+                        {localStorage.getItem("username") === thread?.author && (
                             <IconButton
                                 id="basic-button"
                                 aria-controls={open ? "basic-menu" : undefined}
@@ -51,23 +51,39 @@ const CommentItem: React.FC<Props> = ({ comment }) => {
                     </>
                 }
                 title={
+                    <Typography variant="h5" sx={{ textAlign: "left" }}>
+                        {thread?.title}
+                    </Typography>
+                }
+                subheader={
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Typography variant="body2" sx={{ fontWeight: "600" }}>
-                            {comment.author}
+                            {thread?.author}
                         </Typography>
                         <Typography variant="body2" sx={{ marginLeft: 2 }}>
                             {"Posted on " + dateTimeObject.toLocaleString()}
                         </Typography>
                     </Box>
                 }
-                subheader={
-                    <Typography variant="body2" sx={{ whiteSpace: "pre-wrap", textAlign: "left" }}>
-                        {comment.content}
-                    </Typography>
-                }
             />
+            <CardContent sx={{ py: 0 }}>
+                <Typography variant="body1" sx={{ whiteSpace: "pre-wrap", textAlign: "left" }}>
+                    {thread?.content}
+                </Typography>
+            </CardContent>
+            <CardContent sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
+                {thread?.categories.map((category, index) => (
+                    <Typography
+                        key={index}
+                        variant="body2"
+                        sx={{ marginRight: 2, bgcolor: "secondary.light", px: 1, borderRadius: 1 }}
+                    >
+                        {category}
+                    </Typography>
+                ))}
+            </CardContent>
         </Card>
     );
 };
 
-export default CommentItem;
+export default MainPost;

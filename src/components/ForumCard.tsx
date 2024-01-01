@@ -1,5 +1,5 @@
 import Thread from "../types/Thread";
-import { ListItemAvatar, ListItemText, ListItemButton, Avatar, Typography, Grid, Button } from "@mui/material";
+import { ListItemAvatar, ListItemText, ListItemButton, Avatar, Typography, Grid, Button, Box } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -42,7 +42,17 @@ const ForumCard: React.FC<Props> = ({ thread }) => {
                             <ListItemText primary={thread.title} secondary={thread.content} />
                         </Grid>
                         <Grid item>
-                            <Typography variant="caption">{"Tags: " + thread.categories.join(" | ")}</Typography>
+                            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", p: 0 }}>
+                                {thread?.categories.map((category, index) => (
+                                    <Typography
+                                        key={index}
+                                        variant="body2"
+                                        sx={{ marginRight: 2, bgcolor: "lightgrey", px: 1, borderRadius: 1 }}
+                                    >
+                                        {category}
+                                    </Typography>
+                                ))}
+                            </Box>
                         </Grid>
                         <Grid item>
                             <Button disabled startIcon={<FavoriteBorderIcon />}>

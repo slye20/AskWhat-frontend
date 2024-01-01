@@ -72,7 +72,7 @@ const App: React.FC = () => {
                     <Routes>
                         <Route path="/thread/:threadId" element={<IndividualThreadView />} />
                         <Route path="/" element={<Home />} />
-                        <Route path="/submit" element={<CreateNewThread />} />
+                        <Route path="/new" element={<CreateNewThread />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<SignUp />} />
                     </Routes>

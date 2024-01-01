@@ -2,7 +2,7 @@ type Thread = {
     id: number;
     title: string;
     description: string;
-    createdAt: Date;
+    created_at: Date;
     author: string;
 };
 

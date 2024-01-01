@@ -68,6 +68,7 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
+                {/* <NavBar /> */}
                 <BrowserRouter>
                     <Routes>
                         <Route path="/thread/:threadId" element={<IndividualThreadView />} />

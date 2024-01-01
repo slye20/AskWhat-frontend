@@ -4,6 +4,7 @@ type Thread = {
     description: string;
     created_at: Date;
     author: string;
+    categories: string[];
 };
 
 export default Thread;

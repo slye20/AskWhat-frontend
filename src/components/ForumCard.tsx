@@ -42,6 +42,9 @@ const ForumCard: React.FC<Props> = ({ thread }) => {
                             <ListItemText primary={thread.title} secondary={thread.description} />
                         </Grid>
                         <Grid item>
+                            <Typography variant="caption">{"Tags: " + thread.categories.join(" | ")}</Typography>
+                        </Grid>
+                        <Grid item>
                             <Button disabled startIcon={<FavoriteBorderIcon />}>
                                 0
                             </Button>

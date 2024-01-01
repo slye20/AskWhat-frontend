@@ -1,3 +1,4 @@
+import Thread from "../types/Thread";
 import ForumList from "../components/ForumList";
 import React, { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
@@ -5,16 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
-    const [threads, setThreads] = useState([]);
+    const [threads, setThreads] = useState<Thread[]>([]);
 
     useEffect(() => {
         const url = "http://localhost:3000/forum_threads";
-        fetch(url, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${localStorage.jwt}`,
-            },
-        })
+        fetch(url)
             .then((res) => {
                 if (res.ok) {
                     return res.json();

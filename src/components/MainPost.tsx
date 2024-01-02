@@ -1,87 +1,78 @@
+import MainPostCard from "./MainPostCard";
+import ForumForm from "./ForumForm";
 import Thread from "../types/Thread";
-import { Box, Card, CardContent, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
-import React from "react";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+
+import { Card, CardContent } from "@mui/material";
+import React, { FormEvent, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 type Prop = {
-    thread?: Thread;
+    thread1?: Thread;
 };
 
-const MainPost: React.FC<Prop> = ({ thread }) => {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
+const MainPost: React.FC<Prop> = ({ thread1 }) => {
+    if (!thread1) {
+        return null;
+    }
+    const { threadId } = useParams();
+    const [edit, setEdit] = useState<boolean>(false);
+    const [thread, setThread] = useState<Thread>(thread1);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+
+    const handleEdit = () => {
+        setEdit(true);
     };
 
-    const dateTimeObject = thread ? new Date(thread.created_at) : new Date();
+    const handleDelete = () => {};
+
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
+
+        fetch(`http://localhost:3000/forum_threads/${threadId}`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${localStorage.jwt}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ thread }),
+            credentials: "include",
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else if (res.status === 401) {
+                    // 401 unauthorized
+                    navigate("/login");
+                } else if (res.status === 406 || res.status === 422) {
+                    // 406 not acceptable
+                    return res.json().then((err) => {
+                        console.log(err);
+                        throw new Error(err.error.join("\n"));
+                    });
+                } else {
+                    throw new Error("An error occurred. Please try again later.");
+                }
+            })
+            .catch((error) => setError(error.message));
+        setEdit(false);
+    };
 
     return (
         <Card variant="outlined" sx={{ marginBottom: 2, boxShadow: 1 }}>
-            <CardHeader
-                action={
-                    // Menu only shows if username match author's name
-                    <>
-                        {localStorage.getItem("username") === thread?.author && (
-                            <IconButton
-                                id="basic-button"
-                                aria-controls={open ? "basic-menu" : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? "true" : undefined}
-                                onClick={handleClick}
-                            >
-                                <MoreVertIcon />
-                            </IconButton>
-                        )}
-                        <Menu
-                            id="basic-menu"
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            MenuListProps={{
-                                "aria-labelledby": "basic-button",
-                            }}
-                        >
-                            <MenuItem onClick={handleClose}>Edit</MenuItem>
-                            <MenuItem onClick={handleClose}>Delete</MenuItem>
-                        </Menu>
-                    </>
-                }
-                title={
-                    <Typography variant="h5" sx={{ textAlign: "left" }}>
-                        {thread?.title}
-                    </Typography>
-                }
-                subheader={
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Typography variant="body2" sx={{ fontWeight: "600" }}>
-                            {thread?.author}
-                        </Typography>
-                        <Typography variant="body2" sx={{ marginLeft: 2 }}>
-                            {"Posted on " + dateTimeObject.toLocaleString()}
-                        </Typography>
-                    </Box>
-                }
-            />
-            <CardContent sx={{ py: 0 }}>
-                <Typography variant="body1" sx={{ whiteSpace: "pre-wrap", textAlign: "left" }}>
-                    {thread?.content}
-                </Typography>
-            </CardContent>
-            <CardContent sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
-                {thread?.categories.map((category, index) => (
-                    <Typography
-                        key={index}
-                        variant="body2"
-                        sx={{ marginRight: 2, bgcolor: "secondary.light", px: 1, borderRadius: 1 }}
-                    >
-                        {category}
-                    </Typography>
-                ))}
-            </CardContent>
+            {edit ? (
+                <CardContent sx={{ paddingRight: 4 }}>
+                    <ForumForm
+                        thread={thread}
+                        error={error}
+                        setThread={setThread}
+                        setError={setError}
+                        handleSubmit={handleSubmit}
+                    />
+                </CardContent>
+            ) : (
+                <MainPostCard thread={thread} handleEdit={handleEdit} handleDelete={handleDelete} />
+            )}
         </Card>
     );
 };

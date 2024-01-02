@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
-    const [threads, setThreads] = useState<Thread[]>([]);
+    const [threads, setThreads] = useState<Required<Thread>[]>([]);
 
     useEffect(() => {
         const url = "http://localhost:3000/forum_threads";

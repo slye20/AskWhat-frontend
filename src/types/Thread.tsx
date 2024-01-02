@@ -1,9 +1,9 @@
 type Thread = {
-    id: number;
+    id?: number;
     title: string;
     content: string;
-    created_at: Date;
-    author: string;
+    created_at?: Date;
+    author?: string;
     categories: string[];
 };
 

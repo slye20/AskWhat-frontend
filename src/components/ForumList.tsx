@@ -4,7 +4,7 @@ import React from "react";
 import { List } from "@mui/material";
 
 type Props = {
-    threads: Thread[];
+    threads: Required<Thread>[];
 };
 
 const ForumList: React.FC<Props> = ({ threads }) => {

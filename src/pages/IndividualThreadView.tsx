@@ -45,7 +45,7 @@ const StyledThreadView: React.FC = () => {
             <Button variant="contained" color="secondary" style={{ margin: "10px 20px" }} onClick={() => navigate("/")}>
                 {"Back to threads"}
             </Button>
-            <MainPost thread={result.thread} />
+            <MainPost thread1={result.thread} />
             <BasicCommentList comments={result.comments} />
             <MakeComment onAddComment={handleAddComment} />
         </div>

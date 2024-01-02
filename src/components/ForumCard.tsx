@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 type Props = {
-    thread: Thread;
+    thread: Required<Thread>;
 };
 
 const ForumCard: React.FC<Props> = ({ thread }) => {

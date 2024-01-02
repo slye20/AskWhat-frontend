@@ -16,13 +16,7 @@ const StyledThreadView: React.FC = () => {
     });
 
     useEffect(() => {
-        const url = `http://localhost:3000/forum_threads/${threadId}`;
-        fetch(url, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${localStorage.jwt}`,
-            },
-        })
+        fetch(`http://localhost:3000/forum_threads/${threadId}`)
             .then((res) => {
                 if (res.ok) {
                     return res.json();
@@ -33,13 +27,6 @@ const StyledThreadView: React.FC = () => {
             .catch(() => navigate("/"));
     }, []);
 
-    const handleAddComment = (newComment: Comment) => {
-        setResult({
-            ...result,
-            comments: [...result.comments, newComment],
-        });
-    };
-
     return (
         <div style={{ width: "80vw", margin: "auto" }}>
             <Button variant="contained" color="secondary" style={{ margin: "10px 20px" }} onClick={() => navigate("/")}>
@@ -47,7 +34,13 @@ const StyledThreadView: React.FC = () => {
             </Button>
             <MainPost thread1={result.thread} />
             <BasicCommentList comments={result.comments} />
-            <MakeComment onAddComment={handleAddComment} />
+            {localStorage.jwt ? (
+                <MakeComment />
+            ) : (
+                <Button variant="contained" color="secondary" onClick={() => navigate("/login")}>
+                    Log In to Comment
+                </Button>
+            )}
         </div>
     );
 };

@@ -29,9 +29,7 @@ const MainPost: React.FC<Prop> = ({ thread1 }) => {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${localStorage.jwt}`,
-                "Content-Type": "application/json",
             },
-            body: JSON.stringify({ thread }),
             credentials: "include",
         })
             .then((res) => {

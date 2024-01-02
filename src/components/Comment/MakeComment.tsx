@@ -1,12 +1,11 @@
-import "../App.css";
+import CommentForm from "./CommentForm";
 
-import React, { ChangeEvent, useState } from "react";
-import { Button, TextField } from "@mui/material";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const MakeComment: React.FC = () => {
     const { threadId } = useParams();
-    const [comment, setComment] = useState({ content: "", id: threadId });
+    const [comment, setComment] = useState({ content: "", id: Number(threadId) });
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -39,29 +38,15 @@ const MakeComment: React.FC = () => {
             .catch((error) => setError(error.message));
     };
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setComment({ ...comment, content: event.target.value });
-    };
-
     return (
         <div style={{ margin: "auto", textAlign: "center" }}>
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    onChange={handleChange}
-                    label="Comment"
-                    multiline
-                    rows={2}
-                    placeholder="Share your thoughts!"
-                    fullWidth={true}
-                    size="small"
-                    value={comment.content}
-                />
-                <br />
-                {error && <div style={{ color: "red", margin: "10px 0", whiteSpace: "pre-line" }}>{error}</div>}
-                <Button color="warning" variant="contained" type="submit" style={{ margin: "10px 20px" }}>
-                    post
-                </Button>
-            </form>
+            <CommentForm
+                comment={comment}
+                error={error}
+                setError={setError}
+                setComment={setComment}
+                handleSubmit={handleSubmit}
+            />
         </div>
     );
 };

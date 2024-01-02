@@ -1,6 +1,6 @@
-import MainPost from "../components/MainPost";
-import MakeComment from "../components/MakeComment";
-import BasicCommentList from "../components/CommentList";
+import MainPost from "../components/Forum/MainPost";
+import MakeComment from "../components/Comment/MakeComment";
+import CommentList from "../components/Comment/CommentList";
 import Comment from "../types/Comment";
 import Thread from "../types/Thread";
 import { Button } from "@mui/material";
@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 const StyledThreadView: React.FC = () => {
     const { threadId } = useParams();
     const navigate = useNavigate();
-    const [result, setResult] = useState<{ thread: Thread | undefined; comments: Comment[] }>({
+    const [result, setResult] = useState<{ thread: Thread | undefined; comments: Required<Comment>[] }>({
         thread: undefined,
         comments: [],
     });
@@ -33,7 +33,7 @@ const StyledThreadView: React.FC = () => {
                 {"Back to threads"}
             </Button>
             <MainPost thread1={result.thread} />
-            <BasicCommentList comments={result.comments} />
+            <CommentList comments={result.comments} />
             {localStorage.jwt ? (
                 <MakeComment />
             ) : (

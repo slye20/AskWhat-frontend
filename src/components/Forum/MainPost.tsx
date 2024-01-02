@@ -1,6 +1,6 @@
 import MainPostCard from "./MainPostCard";
 import ForumForm from "./ForumForm";
-import Thread from "../types/Thread";
+import Thread from "../../types/Thread";
 
 import { Card, CardContent } from "@mui/material";
 import React, { FormEvent, useState } from "react";

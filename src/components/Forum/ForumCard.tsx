@@ -1,4 +1,4 @@
-import Thread from "../types/Thread";
+import Thread from "../../types/Thread";
 import { ListItemAvatar, ListItemText, ListItemButton, Avatar, Typography, Grid, Button, Box } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";

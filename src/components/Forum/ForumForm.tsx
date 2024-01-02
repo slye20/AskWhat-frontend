@@ -1,4 +1,4 @@
-import Thread from "../types/Thread";
+import Thread from "../../types/Thread";
 
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { Button, Checkbox, TextField, Autocomplete } from "@mui/material";

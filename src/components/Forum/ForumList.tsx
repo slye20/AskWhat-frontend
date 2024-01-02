@@ -1,5 +1,5 @@
 import ForumCard from "./ForumCard";
-import Thread from "../types/Thread";
+import Thread from "../../types/Thread";
 import React from "react";
 import { List } from "@mui/material";
 

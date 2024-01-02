@@ -1,7 +1,7 @@
 type Comment = {
     content: string;
-    author: string;
-    created_at: Date;
+    author?: string;
+    created_at?: Date;
     id: number;
 };
 

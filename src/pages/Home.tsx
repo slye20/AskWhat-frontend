@@ -1,5 +1,5 @@
 import Thread from "../types/Thread";
-import ForumList from "../components/ForumList";
+import ForumList from "../components/Forum/ForumList";
 import React, { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";

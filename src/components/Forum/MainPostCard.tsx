@@ -1,4 +1,4 @@
-import Thread from "../types/Thread";
+import Thread from "../../types/Thread";
 import { Box, CardContent, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, { FC, useState } from "react";

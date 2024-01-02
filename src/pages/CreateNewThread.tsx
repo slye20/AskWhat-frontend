@@ -1,4 +1,4 @@
-import ForumForm from "../components/ForumForm";
+import ForumForm from "../components/Forum/ForumForm";
 import Thread from "../types/Thread";
 import { Typography } from "@mui/material";
 import React, { FormEvent, useState } from "react";

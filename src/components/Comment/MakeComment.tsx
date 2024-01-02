@@ -1,6 +1,6 @@
 import CommentForm from "./CommentForm";
 
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const MakeComment: React.FC = () => {
@@ -9,7 +9,8 @@ const MakeComment: React.FC = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
         fetch(`http://localhost:3000/comments`, {
             method: "POST",
             headers: {
@@ -21,6 +22,7 @@ const MakeComment: React.FC = () => {
         })
             .then((res) => {
                 if (res.ok) {
+                    window.location.reload();
                     return res.json();
                 } else if (res.status === 401) {
                     // 401 unauthorized

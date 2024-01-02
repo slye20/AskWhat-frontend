@@ -39,8 +39,8 @@ const CreateThread: React.FC = () => {
                     throw new Error("An error occurred. Please try again later.");
                 }
             })
-            .then(() => {
-                navigate(`/`);
+            .then((data) => {
+                navigate(`/thread/${data.thread.id}`);
             })
             .catch((error) => setError(error.message));
     };

@@ -16,7 +16,7 @@ const CommentForm: FC<Prop> = ({ comment, error, setError, setComment, handleSub
         setError("");
     };
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(event) => handleSubmit(event)}>
             <TextField
                 onChange={handleChange}
                 label="Comment"

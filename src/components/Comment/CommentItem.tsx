@@ -1,7 +1,7 @@
 import CommentForm from "./CommentForm";
 import Comment from "../../types/Comment";
 
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Avatar, Box, Card, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
@@ -28,8 +28,8 @@ const CommentItem: React.FC<Props> = ({ comment_temp }) => {
         setAnchorEl(null);
     };
 
-    const handleSubmit = () => {
-        console.log(JSON.stringify({ comment }));
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
         fetch(`http://localhost:3000/comments/${comment.id}`, {
             method: "PATCH",
             headers: {
@@ -41,6 +41,8 @@ const CommentItem: React.FC<Props> = ({ comment_temp }) => {
         })
             .then((res) => {
                 if (res.ok) {
+                    window.location.reload();
+                    setEdit(false);
                     return res.json();
                 } else if (res.status === 401) {
                     // 401 unauthorized
@@ -56,7 +58,6 @@ const CommentItem: React.FC<Props> = ({ comment_temp }) => {
                 }
             })
             .catch((error) => setError(error.message));
-        setEdit(false);
     };
 
     const handleDelete = () => {

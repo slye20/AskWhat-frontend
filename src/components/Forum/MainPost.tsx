@@ -65,6 +65,7 @@ const MainPost: React.FC<Prop> = ({ thread1 }) => {
         })
             .then((res) => {
                 if (res.ok) {
+                    setEdit(false);
                     return res.json();
                 } else if (res.status === 401) {
                     // 401 unauthorized
@@ -80,7 +81,6 @@ const MainPost: React.FC<Prop> = ({ thread1 }) => {
                 }
             })
             .catch((error) => setError(error.message));
-        setEdit(false);
     };
 
     return (

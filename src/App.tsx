@@ -1,3 +1,4 @@
+import NavBar from "./components/NavBar/NavBar";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import IndividualThreadView from "./pages/IndividualThreadView";
@@ -68,12 +69,35 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
-                {/* <NavBar /> */}
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/thread/:threadId" element={<IndividualThreadView />} />
-                        <Route path="/" element={<Home />} />
-                        <Route path="/new" element={<CreateNewThread />} />
+                        <Route
+                            path="/thread/:threadId"
+                            element={
+                                <>
+                                    <NavBar />
+                                    <IndividualThreadView />
+                                </>
+                            }
+                        />
+                        <Route
+                            path="/"
+                            element={
+                                <>
+                                    <NavBar />
+                                    <Home />
+                                </>
+                            }
+                        />
+                        <Route
+                            path="/new"
+                            element={
+                                <>
+                                    <NavBar />
+                                    <CreateNewThread />
+                                </>
+                            }
+                        />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<SignUp />} />
                     </Routes>

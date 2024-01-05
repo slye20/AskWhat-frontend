@@ -29,9 +29,6 @@ const StyledThreadView: React.FC = () => {
 
     return (
         <div style={{ width: "80vw", margin: "auto" }}>
-            <Button variant="contained" color="secondary" style={{ margin: "10px 20px" }} onClick={() => navigate("/")}>
-                {"Back to threads"}
-            </Button>
             <MainPost thread1={result.thread} />
             <CommentList comments={result.comments} />
             {localStorage.jwt ? (

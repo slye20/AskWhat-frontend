@@ -41,6 +41,7 @@ const MainPostCard: FC<Prop> = ({ thread, handleEdit, handleDelete }) => {
                             MenuListProps={{
                                 "aria-labelledby": "basic-button",
                             }}
+                            keepMounted
                         >
                             <MenuItem
                                 onClick={() => {

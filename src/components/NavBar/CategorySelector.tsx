@@ -23,6 +23,7 @@ const StyledFormControl = styled(FormControl)(({ theme }) => ({
     },
 }));
 
+// remove repeated?
 const CategorySelector = () => {
     const [categories, setCategories] = useState<string[]>([]);
 

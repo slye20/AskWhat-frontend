@@ -1,20 +1,17 @@
 import CommentForm from "./CommentForm";
 import apiCreateComment from "../../services/CreateCommentService";
+import useCommentHandler from "../../hooks/useCommentHandler";
 
-import React, { FormEvent, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React from "react";
+import { useParams } from "react-router-dom";
 
 const MakeComment: React.FC = () => {
     const { threadId } = useParams();
-    const [comment, setComment] = useState({ content: "", id: Number(threadId) });
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
-
-    const handleSubmit = (event: FormEvent) => {
-        event.preventDefault();
-        apiCreateComment(comment, setError, navigate);
-    };
-
+    const initialComment = { content: "", id: Number(threadId) };
+    const { comment, setComment, error, setError, handleSubmit } = useCommentHandler({
+        initialComment: initialComment,
+        saveComment: apiCreateComment,
+    });
     return (
         <div style={{ margin: "auto", textAlign: "center" }}>
             <CommentForm

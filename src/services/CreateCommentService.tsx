@@ -12,7 +12,7 @@ const apiCreateComment = (comment: Comment, setErrors: (error: string) => void, 
     })
         .then((res) => {
             if (res.ok) {
-                window.location.reload();
+                window.location.reload(); // find a way to change
                 return res.json();
             } else if (res.status === 401) {
                 // 401 unauthorized

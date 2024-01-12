@@ -27,14 +27,14 @@ const ForumCard: React.FC<Props> = ({ thread }) => {
             }}
         >
             <Grid container spacing={2}>
-                <Grid item sx={{ display: "flex", alignItems: "center" }}>
+                {/* <Grid item sx={{ display: "flex", alignItems: "center" }}>
                     <img style={{ width: 100, height: 100 }} src="https://mui.com/static/images/grid/complex.jpg" />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} sm container spacing={1}>
                     <Grid item xs container direction="column" spacing={1}>
                         <Grid item xs>
                             <ListItemAvatar sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                                <Avatar sx={{ width: 24, height: 24 }}>{thread.author[0].toUpperCase()}</Avatar>
+                                <Avatar sx={{ width: 20, height: 20 }}>{thread.author[0].toUpperCase()}</Avatar>
                                 <Typography variant="caption" sx={{ fontSize: "0.75rem", marginLeft: 1 }}>
                                     {thread.author}
                                 </Typography>

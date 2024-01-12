@@ -11,7 +11,7 @@ const CommentList: React.FC<Props> = ({ comments }) => {
     return (
         <ul>
             {comments.map((comment) => (
-                <CommentItem comment_temp={comment} key={comment.id} />
+                <CommentItem data={comment} key={comment.id} />
             ))}
         </ul>
     );

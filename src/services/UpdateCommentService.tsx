@@ -12,7 +12,6 @@ const apiUpdateComment = (comment: Comment, setErrors: (error: string) => void, 
     })
         .then((res) => {
             if (res.ok) {
-                window.location.reload();
                 return res.json();
             } else if (res.status === 401) {
                 // 401 unauthorized

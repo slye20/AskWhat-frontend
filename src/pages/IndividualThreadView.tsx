@@ -1,25 +1,15 @@
 import MainPost from "../components/Forum/MainPost";
 import MakeComment from "../components/Comment/MakeComment";
 import CommentList from "../components/Comment/CommentList";
-import Comment from "../types/Comment";
-import Thread from "../types/Thread";
+import useThreadData from "../hooks/useThreadData";
+import CustomButton from "../components/ui/CustomButton";
 
-import apiReadThread from "../services/ReadThreadService";
-import { Button } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import React from "react";
 
 const StyledThreadView: React.FC = () => {
     const { threadId } = useParams();
-    const navigate = useNavigate();
-    const [result, setResult] = useState<{ thread: Thread | undefined; comments: Required<Comment>[] }>({
-        thread: undefined,
-        comments: [],
-    });
-
-    useEffect(() => {
-        apiReadThread(threadId as string, setResult, navigate);
-    }, []);
+    const { result, navigate } = useThreadData(threadId as string);
 
     return (
         <div style={{ width: "80vw", margin: "auto" }}>
@@ -28,9 +18,7 @@ const StyledThreadView: React.FC = () => {
             {localStorage.jwt ? (
                 <MakeComment />
             ) : (
-                <Button variant="contained" color="secondary" onClick={() => navigate("/login")}>
-                    Log In to Comment
-                </Button>
+                <CustomButton label="Log In to Comment" onClick={() => navigate("/login")} />
             )}
         </div>
     );

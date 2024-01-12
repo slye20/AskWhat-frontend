@@ -1,4 +1,6 @@
 import CommentForm from "./CommentForm";
+import apiDeleteComment from "../../services/DeleteCommentService";
+import apiUpdateComment from "../../services/UpdateCommentService";
 import Comment from "../../types/Comment";
 
 import React, { FormEvent, useState } from "react";
@@ -30,62 +32,13 @@ const CommentItem: React.FC<Props> = ({ comment_temp }) => {
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        fetch(`http://localhost:3000/comments/${comment.id}`, {
-            method: "PATCH",
-            headers: {
-                Authorization: `Bearer ${localStorage.jwt}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ comment }),
-            credentials: "include",
-        })
-            .then((res) => {
-                if (res.ok) {
-                    window.location.reload();
-                    setEdit(false);
-                    return res.json();
-                } else if (res.status === 401) {
-                    // 401 unauthorized
-                    navigate("/login");
-                } else if (res.status === 406 || res.status === 422) {
-                    // 406 not acceptable
-                    return res.json().then((err) => {
-                        console.log(err);
-                        throw new Error(err.error.join("\n"));
-                    });
-                } else {
-                    throw new Error("An error occurred. Please try again later.");
-                }
-            })
-            .catch((error) => setError(error.message));
+        setEdit(false);
+        apiUpdateComment(comment, setError, navigate);
     };
 
     const handleDelete = () => {
         window.location.reload();
-        fetch(`http://localhost:3000/comments/${comment.id}`, {
-            method: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.jwt}`,
-            },
-            credentials: "include",
-        })
-            .then((res) => {
-                if (res.ok) {
-                    return;
-                } else if (res.status === 401) {
-                    // 401 unauthorized
-                    navigate("/login");
-                } else if (res.status === 406 || res.status === 422) {
-                    // 406 not acceptable
-                    return res.json().then((err) => {
-                        console.log(err);
-                        throw new Error(err.error.join("\n"));
-                    });
-                } else {
-                    throw new Error("An error occurred. Please try again later.");
-                }
-            })
-            .catch((error) => setError(error.message));
+        apiDeleteComment(comment, setError, navigate);
         setAnchorEl(null);
     };
 

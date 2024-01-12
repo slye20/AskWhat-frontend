@@ -1,5 +1,4 @@
 import SignUpForm from "../components/SignUp/SignUpForm";
-
 import { Typography } from "@mui/material";
 import React from "react";
 
@@ -15,7 +14,6 @@ const SignUp: React.FC = () => {
                 <Typography variant="h5" component="h5" marginTop={2}>
                     {"Sign Up"}
                 </Typography>
-
                 <SignUpForm />
             </div>
         </div>

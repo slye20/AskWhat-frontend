@@ -7,7 +7,7 @@ import React from "react";
 const SignUpForm = () => {
     const initialValue = { username: "", password: "", email: "" };
     const { values: user, errors, setErrors, handleChange, handleSubmit, navigate } = useForm(initialValue);
-    setErrors;
+
     return (
         <form
             onSubmit={(event) => {

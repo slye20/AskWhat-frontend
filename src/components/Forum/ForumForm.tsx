@@ -1,5 +1,5 @@
 import Thread from "../../types/Thread";
-
+import apiReadCategory from "../../services/ReadCategoryService";
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { Button, Checkbox, TextField, Autocomplete } from "@mui/material";
 
@@ -15,15 +15,7 @@ const ForumForm: FC<Prop> = ({ thread, error, setThread, setError, handleSubmit 
     const [categories, setCategories] = useState<string[]>([]);
 
     useEffect(() => {
-        const url = `http://localhost:3000/categories`;
-        fetch(url)
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error("Network response was not ok.");
-            })
-            .then((t) => setCategories(t));
+        apiReadCategory(setCategories);
     }, []);
 
     const handleChange = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {

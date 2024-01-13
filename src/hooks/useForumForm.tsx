@@ -1,12 +1,18 @@
-import apiReadCategory from "../services/ReadCategoryService";
+import apiReadCategoryList from "../services/ReadCategoryListService";
+import Category from "../types/Category";
 import Thread from "../types/Thread";
 import { ChangeEvent, useEffect, useState } from "react";
 
 const useForumForm = (thread: Thread, setError: (error: string) => void, setThread: (thread: Thread) => void) => {
-    const [categories, setCategories] = useState<string[]>([]);
+    const [categoryNames, setCategoryNames] = useState<string[]>([]);
+
+    const setCategories = (categories: Category[]) => {
+        const names = categories.map((category) => category.name);
+        setCategoryNames(names);
+    };
 
     useEffect(() => {
-        apiReadCategory(setCategories);
+        apiReadCategoryList(setCategories);
     }, []);
 
     const handleChange = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +23,7 @@ const useForumForm = (thread: Thread, setError: (error: string) => void, setThre
     const handleSelectChange = (val: string[]) => {
         setThread({ ...thread, categories: val });
     };
-    return { categories, handleChange, handleSelectChange };
+    return { categoryNames, handleChange, handleSelectChange };
 };
 
 export default useForumForm;

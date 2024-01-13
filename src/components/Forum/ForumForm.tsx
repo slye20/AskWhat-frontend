@@ -14,7 +14,7 @@ type Prop = {
 };
 
 const ForumForm: FC<Prop> = ({ thread, error, setThread, setError, handleSubmit }) => {
-    const { categories, handleChange, handleSelectChange } = useForumForm(thread, setError, setThread);
+    const { categoryNames, handleChange, handleSelectChange } = useForumForm(thread, setError, setThread);
 
     return (
         <form onSubmit={(event) => handleSubmit(event)}>
@@ -30,7 +30,7 @@ const ForumForm: FC<Prop> = ({ thread, error, setThread, setError, handleSubmit 
                 multiple
                 onChange={(_, val) => handleSelectChange(val)}
                 disableCloseOnSelect
-                options={categories}
+                options={categoryNames}
                 renderOption={(props, option, { selected }) => (
                     <li {...props}>
                         <Checkbox checked={selected} />

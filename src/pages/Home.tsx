@@ -4,6 +4,7 @@ import Thread from "../types/Thread";
 import ForumList from "../components/Forum/ForumList";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -14,10 +15,10 @@ const Home: React.FC = () => {
     }, []);
 
     return (
-        <>
+        <Box sx={{ width: "80vw", margin: "auto", bgcolor: "background.paper" }}>
             <ForumList threads={threads} />
             <CustomButton label="Show More" />
-        </>
+        </Box>
     );
 };
 

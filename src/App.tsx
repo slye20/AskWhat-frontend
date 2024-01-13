@@ -3,6 +3,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import ThreadView from "./pages/ThreadView";
 import Home from "./pages/Home";
+import CategoryView from "./pages/CategoryView";
 import CreateNewThread from "./pages/CreateNewThread";
 import React from "react";
 import "./App.css";
@@ -76,6 +77,15 @@ const App: React.FC = () => {
                                 <>
                                     <NavBar />
                                     <ThreadView />
+                                </>
+                            }
+                        />
+                        <Route
+                            path="/category/:categoryId"
+                            element={
+                                <>
+                                    <NavBar />
+                                    <CategoryView />
                                 </>
                             }
                         />

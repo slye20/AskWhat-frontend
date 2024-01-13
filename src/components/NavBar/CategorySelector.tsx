@@ -1,6 +1,6 @@
-import apiReadCategory from "../../services/ReadCategoryService";
+import apiReadCategoryList from "../../services/ReadCategoryListService";
+import Category from "../../types/Category";
 import { Box, MenuItem, FormControl, Select } from "@mui/material";
-import { SelectChangeEvent } from "@mui/material/Select";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { alpha, styled } from "@mui/material/styles";
@@ -26,15 +26,14 @@ const StyledFormControl = styled(FormControl)(({ theme }) => ({
 
 // remove repeated?
 const CategorySelector = () => {
-    const [categories, setCategories] = useState<string[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
-        apiReadCategory(setCategories);
+        apiReadCategoryList(setCategories);
     }, []);
 
-    const handleChange = (event: SelectChangeEvent) => {
-        const value = event.target.value;
-        value ? navigate(`/category/${event.target.value}`) : {};
+    const onclick = (category: Category) => {
+        navigate(`/category/${category.id}`);
     };
 
     const navigate = useNavigate();
@@ -42,7 +41,6 @@ const CategorySelector = () => {
         <Box>
             <StyledFormControl fullWidth sx={{ minWidth: 200 }}>
                 <Select
-                    onChange={handleChange}
                     displayEmpty
                     value=""
                     sx={{
@@ -52,9 +50,9 @@ const CategorySelector = () => {
                     <MenuItem value="" disabled>
                         <em>Category</em>
                     </MenuItem>
-                    {categories.map((category, index) => (
-                        <MenuItem value={category} key={index}>
-                            {category}
+                    {categories.map((category) => (
+                        <MenuItem value={category.name} key={category.id} onClick={() => onclick(category)}>
+                            {category.name}
                         </MenuItem>
                     ))}
                 </Select>

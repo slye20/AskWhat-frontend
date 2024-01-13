@@ -9,9 +9,9 @@ type Props = {
 
 const ForumList: React.FC<Props> = ({ threads }) => {
     return (
-        <List sx={{ width: "80vw", margin: "auto", bgcolor: "background.paper" }}>
-            {threads.map((thread) => (
-                <ForumCard thread={thread} key="" /> // pass in empty key? what for?
+        <List>
+            {threads.map((thread, index) => (
+                <ForumCard thread={thread} key={index} />
             ))}
         </List>
     );

@@ -1,5 +1,6 @@
+import CustomButton from "../ui/CustomButton";
+import CustomTextField from "../ui/CustomTextField";
 import Comment from "../../types/Comment";
-import { Button, TextField } from "@mui/material";
 import React, { ChangeEvent, FC, FormEvent } from "react";
 
 type Prop = {
@@ -17,21 +18,17 @@ const CommentForm: FC<Prop> = ({ comment, error, setError, setComment, handleSub
     };
     return (
         <form onSubmit={(event) => handleSubmit(event)}>
-            <TextField
+            <CustomTextField
                 onChange={handleChange}
                 label="Comment"
-                multiline
-                rows={2}
                 placeholder="Share your thoughts!"
-                fullWidth={true}
-                size="small"
                 value={comment.content}
+                sx={{ m: 0 }}
+                minRows={2}
             />
             <br />
             {error && <div style={{ color: "red", margin: "10px 0", whiteSpace: "pre-line" }}>{error}</div>}
-            <Button color="warning" variant="contained" type="submit" style={{ margin: "10px 20px" }}>
-                post
-            </Button>
+            <CustomButton label="Post" type="submit" />
         </form>
     );
 };

@@ -7,6 +7,7 @@ import React from "react";
 const LoginForm = () => {
     const initialValue = { username: "samuel", password: "a1s2d3f4g5" }; //remove
     const { values: user, errors, setErrors, handleChange, handleSubmit, navigate } = useForm(initialValue);
+
     return (
         <form
             onSubmit={(event) => {

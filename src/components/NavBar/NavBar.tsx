@@ -90,7 +90,7 @@ const NavBar = () => {
                             </Menu>
                         </>
                     ) : (
-                        <Button color="inherit" onClick={() => navigate("login")}>
+                        <Button color="inherit" onClick={() => navigate("/login")}>
                             Login
                         </Button>
                     )}

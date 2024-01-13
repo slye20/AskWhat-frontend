@@ -4,6 +4,7 @@ const apiReadThread = (
     threadId: string,
     setResult: (result: ThreadData) => void,
     navigate: (route: string) => void,
+    setIsLoading: (loading: boolean) => void,
 ) => {
     fetch(`http://localhost:3000/forum_threads/${threadId}`)
         .then((res) => {
@@ -12,7 +13,10 @@ const apiReadThread = (
             }
             throw new Error("Network response was not ok.");
         })
-        .then((res) => setResult(res))
+        .then((res) => {
+            setResult(res);
+            setIsLoading(false);
+        })
         .catch(() => navigate("/"));
 };
 

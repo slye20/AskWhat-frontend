@@ -1,21 +1,20 @@
 import Thread from "../../types/Thread";
+import useMenu from "../../hooks/useMenu";
 import { Box, CardContent, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
 type Prop = {
     thread: Thread;
-    handleEdit: () => void;
-    handleDelete: () => void;
+    error: string;
+    setError: (value: string) => void;
+    setEdit: (bool: boolean) => void;
 };
 
-const MainPostCard: FC<Prop> = ({ thread, handleEdit, handleDelete }) => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const dateTimeObject = thread?.created_at ? new Date(thread.created_at) : new Date();
+const MainPostCard: FC<Prop> = ({ thread, error, setError, setEdit }) => {
+    const { open, anchorEl, handleClick, handleEdit, handleClose, handleDelete } = useMenu(thread, setError, setEdit);
+    const dateTimeObject = thread?.created_at ? new Date(thread?.created_at) : "Error: Cannot load date";
+
     return (
         <>
             <CardHeader
@@ -37,28 +36,14 @@ const MainPostCard: FC<Prop> = ({ thread, handleEdit, handleDelete }) => {
                             id="basic-menu"
                             anchorEl={anchorEl}
                             open={open}
-                            onClose={() => setAnchorEl(null)}
+                            onClose={handleClose}
                             MenuListProps={{
                                 "aria-labelledby": "basic-button",
                             }}
                             keepMounted
                         >
-                            <MenuItem
-                                onClick={() => {
-                                    setAnchorEl(null);
-                                    handleEdit();
-                                }}
-                            >
-                                Edit
-                            </MenuItem>
-                            <MenuItem
-                                onClick={() => {
-                                    setAnchorEl(null);
-                                    handleDelete();
-                                }}
-                            >
-                                Delete
-                            </MenuItem>
+                            <MenuItem onClick={handleEdit}>Edit</MenuItem>
+                            <MenuItem onClick={handleDelete}>Delete</MenuItem>
                         </Menu>
                     </>
                 }
@@ -94,6 +79,7 @@ const MainPostCard: FC<Prop> = ({ thread, handleEdit, handleDelete }) => {
                     </Typography>
                 ))}
             </CardContent>
+            {error && <div style={{ color: "red", margin: "10px 0", whiteSpace: "pre-line" }}>{error}</div>}
         </>
     );
 };

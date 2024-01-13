@@ -36,7 +36,7 @@ module.exports = {
         ecmaVersion: 11,
         sourceType: "module",
     },
-    plugins: ["react", "@typescript-eslint", "import"],
+    plugins: ["react", "@typescript-eslint", "import", "react-hooks",],
     rules: {
         "no-unused-var": "off",
         "no-var": "error",
@@ -51,6 +51,8 @@ module.exports = {
                 endOfLine: "auto",
             },
         ],
+        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+        "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
     },
     overrides: [
         {

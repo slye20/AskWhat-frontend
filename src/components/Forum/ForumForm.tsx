@@ -1,7 +1,9 @@
+import useForumForm from "../../hooks/useForumForm";
+import CustomButton from "../ui/CustomButton";
+import CustomTextField from "../ui/CustomTextField";
 import Thread from "../../types/Thread";
-import apiReadCategory from "../../services/ReadCategoryService";
-import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
-import { Button, Checkbox, TextField, Autocomplete } from "@mui/material";
+import React, { FC, FormEvent } from "react";
+import { Checkbox, Autocomplete } from "@mui/material";
 
 type Prop = {
     thread: Thread;
@@ -12,41 +14,17 @@ type Prop = {
 };
 
 const ForumForm: FC<Prop> = ({ thread, error, setThread, setError, handleSubmit }) => {
-    const [categories, setCategories] = useState<string[]>([]);
+    const { categories, handleChange, handleSelectChange } = useForumForm(thread, setError, setThread);
 
-    useEffect(() => {
-        apiReadCategory(setCategories);
-    }, []);
-
-    const handleChange = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
-        setThread({ ...thread, [field]: event.target.value });
-        setError("");
-    };
-
-    const handleSelectChange = (val: string[]) => {
-        setThread({ ...thread, categories: val });
-    };
     return (
         <form onSubmit={(event) => handleSubmit(event)}>
-            <TextField
-                onChange={handleChange("title")}
-                label="Title"
-                fullWidth={true}
-                size="small"
-                value={thread.title}
-                sx={{ m: 1 }}
-            />
-            <br />
-            <TextField
+            <CustomTextField onChange={handleChange("title")} label="Title" value={thread.title} />
+            <CustomTextField
                 onChange={handleChange("content")}
                 label="Details"
-                multiline
-                rows={4}
+                minRows={4}
                 placeholder="Share your thoughts!"
-                fullWidth={true}
-                size="small"
                 value={thread.content}
-                sx={{ m: 1 }}
             />
             <Autocomplete
                 multiple
@@ -59,15 +37,12 @@ const ForumForm: FC<Prop> = ({ thread, error, setThread, setError, handleSubmit 
                         {option}
                     </li>
                 )}
-                renderInput={(params) => <TextField {...params} label="Categories" />}
-                sx={{ m: 1 }}
+                renderInput={(params) => <CustomTextField {...params} label="Categories" />}
                 value={thread.categories}
                 fullWidth
             />
             {error && <div style={{ color: "red", margin: "10px 0", whiteSpace: "pre-line" }}>{error}</div>}
-            <Button color="warning" variant="contained" type="submit" sx={{ m: 1 }}>
-                Submit
-            </Button>
+            <CustomButton type="submit" label="Submit" />
         </form>
     );
 };

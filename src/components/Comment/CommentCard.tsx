@@ -14,7 +14,7 @@ type Prop = {
 
 const CommentCard: React.FC<Prop> = ({ comment, error, setError, setEdit }) => {
     const { open, anchorEl, handleClick, handleEdit, handleClose, handleDelete } = useMenu(comment, setError, setEdit);
-    const dateTimeObject = new Date(comment.created_at || new Date());
+    const dateTimeObject = comment?.created_at ? new Date(comment?.created_at) : "Error: Cannot load date";
 
     return (
         <>

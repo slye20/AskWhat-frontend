@@ -11,6 +11,7 @@ type Props = {
 const ForumCard: React.FC<Props> = ({ thread }) => {
     const navigate = useNavigate();
     const dateTimeObject = new Date(thread.created_at);
+
     return (
         <ListItemButton
             onClick={() => navigate(`/thread/${thread.id}`)}
@@ -34,7 +35,9 @@ const ForumCard: React.FC<Props> = ({ thread }) => {
                     <Grid item xs container direction="column" spacing={1}>
                         <Grid item xs>
                             <ListItemAvatar sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                                <Avatar sx={{ width: 20, height: 20 }}>{thread.author[0].toUpperCase()}</Avatar>
+                                <Avatar sx={{ width: 20, height: 20, fontSize: "0.75rem" }}>
+                                    {thread.author[0].toUpperCase()}
+                                </Avatar>
                                 <Typography variant="caption" sx={{ fontSize: "0.75rem", marginLeft: 1 }}>
                                     {thread.author}
                                 </Typography>

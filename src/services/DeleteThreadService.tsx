@@ -1,5 +1,7 @@
-const apiDeleteThread = (threadId: string, setErrors: (error: string) => void, navigate: (route: string) => void) => {
-    fetch(`http://localhost:3000/forum_threads/${threadId}`, {
+import Thread from "../types/Thread";
+
+const apiDeleteThread = (thread: Thread, setErrors: (error: string) => void, navigate: (route: string) => void) => {
+    fetch(`http://localhost:3000/forum_threads/${thread.id}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${localStorage.jwt}`,

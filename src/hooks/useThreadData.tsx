@@ -6,14 +6,15 @@ import { useEffect, useState } from "react";
 const useThreadData = (threadId: string) => {
     const navigate = useNavigate();
     const [result, setResult] = useState<ThreadData>({
-        thread: undefined,
+        thread: { title: "", content: "", categories: [] },
         comments: [],
     });
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        apiReadThread(threadId as string, setResult, navigate);
+        apiReadThread(threadId as string, setResult, navigate, setIsLoading);
     }, []);
-    return { result, navigate };
+    return { result, navigate, isLoading };
 };
 
 export default useThreadData;

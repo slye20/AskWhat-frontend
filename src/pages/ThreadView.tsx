@@ -7,13 +7,18 @@ import CustomButton from "../components/ui/CustomButton";
 import { useParams } from "react-router-dom";
 import React from "react";
 
-const StyledThreadView: React.FC = () => {
+const ThreadView: React.FC = () => {
     const { threadId } = useParams();
-    const { result, navigate } = useThreadData(threadId as string);
+    const { result, navigate, isLoading } = useThreadData(threadId as string);
+
+    if (isLoading) {
+        // Render a loading indicator
+        return <div>Loading...</div>;
+    }
 
     return (
         <div style={{ width: "80vw", margin: "auto" }}>
-            <MainPost thread1={result.thread} />
+            <MainPost data={result.thread} />
             <CommentList comments={result.comments} />
             {localStorage.jwt ? (
                 <MakeComment />
@@ -24,4 +29,4 @@ const StyledThreadView: React.FC = () => {
     );
 };
 
-export default StyledThreadView;
+export default ThreadView;

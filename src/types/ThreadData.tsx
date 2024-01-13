@@ -2,7 +2,7 @@ import Thread from "./Thread";
 import Comment from "./Comment";
 
 type ThreadData = {
-    thread: Thread | undefined;
+    thread: Thread;
     comments: Required<Comment>[];
 };
 

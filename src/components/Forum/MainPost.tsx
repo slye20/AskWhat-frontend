@@ -1,40 +1,21 @@
 import MainPostCard from "./MainPostCard";
 import ForumForm from "./ForumForm";
 import Thread from "../../types/Thread";
-import apiDeleteThread from "../../services/DeleteThreadService";
 import apiUpdateThread from "../../services/UpdateThreadService";
-
+import useForumHandler from "../../hooks/useForumHandler";
 import { Card, CardContent } from "@mui/material";
-import React, { FormEvent, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
 
 type Prop = {
-    thread1?: Thread;
+    data: Thread;
 };
 
-const MainPost: React.FC<Prop> = ({ thread1 }) => {
-    if (!thread1) {
-        return null;
-    }
-    const { threadId } = useParams();
+const MainPost: React.FC<Prop> = ({ data }) => {
     const [edit, setEdit] = useState<boolean>(false);
-    const [thread, setThread] = useState<Thread>(thread1);
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
-
-    const handleEdit = () => {
-        setEdit(true);
-    };
-
-    const handleDelete = () => {
-        apiDeleteThread(threadId as string, setError, navigate);
-    };
-
-    const handleSubmit = (event: FormEvent) => {
-        event.preventDefault();
-        apiUpdateThread(thread, threadId as string, setError, navigate);
-        setEdit(false);
-    };
+    const { thread, setThread, error, setError, handleSubmit } = useForumHandler({
+        initialThread: data,
+        saveThread: apiUpdateThread,
+    });
 
     return (
         <Card variant="outlined" sx={{ marginBottom: 2, boxShadow: 1 }}>
@@ -45,11 +26,14 @@ const MainPost: React.FC<Prop> = ({ thread1 }) => {
                         error={error}
                         setThread={setThread}
                         setError={setError}
-                        handleSubmit={handleSubmit}
+                        handleSubmit={(event) => {
+                            setEdit(false);
+                            handleSubmit(event);
+                        }}
                     />
                 </CardContent>
             ) : (
-                <MainPostCard thread={thread} handleEdit={handleEdit} handleDelete={handleDelete} />
+                <MainPostCard thread={thread} error={error} setError={setError} setEdit={setEdit} />
             )}
         </Card>
     );

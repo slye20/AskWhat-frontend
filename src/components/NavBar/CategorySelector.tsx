@@ -1,3 +1,4 @@
+import apiReadCategory from "../../services/ReadCategoryService";
 import { Box, MenuItem, FormControl, Select } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 import React, { useEffect, useState } from "react";
@@ -28,15 +29,7 @@ const CategorySelector = () => {
     const [categories, setCategories] = useState<string[]>([]);
 
     useEffect(() => {
-        const url = `http://localhost:3000/categories`;
-        fetch(url)
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw new Error("Network response was not ok.");
-            })
-            .then((t) => setCategories(t));
+        apiReadCategory(setCategories);
     }, []);
 
     const handleChange = (event: SelectChangeEvent) => {

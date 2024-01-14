@@ -9,7 +9,7 @@ import React from "react";
 
 const ThreadView: React.FC = () => {
     const { threadId } = useParams();
-    const { result, navigate, isLoading } = useThreadData(threadId as string);
+    const { thread, comments, handleNewComment, navigate, isLoading } = useThreadData(threadId as string);
 
     if (isLoading) {
         // Render a loading indicator
@@ -18,10 +18,10 @@ const ThreadView: React.FC = () => {
 
     return (
         <div style={{ width: "80vw", margin: "auto" }}>
-            <MainPost data={result.thread} />
-            <CommentList comments={result.comments} />
+            <MainPost data={thread} />
+            <CommentList comments={comments} />
             {localStorage.jwt ? (
-                <MakeComment />
+                <MakeComment handleNewComment={handleNewComment} />
             ) : (
                 <CustomButton label="Log In to Comment" onClick={() => navigate("/login")} />
             )}

@@ -1,8 +1,10 @@
-import ThreadData from "../types/ThreadData";
+import Comment from "../types/Comment";
+import Thread from "../types/Thread";
 
 const apiReadThread = (
     threadId: string,
-    setResult: (result: ThreadData) => void,
+    setThread: (thread: Thread) => void,
+    setComments: (comment: Required<Comment>[]) => void,
     navigate: (route: string) => void,
     setIsLoading: (loading: boolean) => void,
 ) => {
@@ -14,7 +16,8 @@ const apiReadThread = (
             throw new Error("Network response was not ok.");
         })
         .then((res) => {
-            setResult(res);
+            setThread(res.thread);
+            setComments(res.comments);
             setIsLoading(false);
         })
         .catch(() => navigate("/"));

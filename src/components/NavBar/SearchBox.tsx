@@ -1,5 +1,5 @@
 import { styled, alpha } from "@mui/material/styles";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
@@ -54,8 +54,9 @@ const SearchBox = () => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     };
-    const HandleSubmit = () => {
-        navigate(`search?q=${inputValue}`);
+    const HandleSubmit = (event: FormEvent) => {
+        event.preventDefault();
+        navigate(`/search?q=${inputValue}`);
     };
 
     return (

@@ -90,7 +90,16 @@ const App: React.FC = () => {
                             }
                         />
                         <Route
-                            path="/"
+                            path="/*"
+                            element={
+                                <>
+                                    <NavBar />
+                                    <Home />
+                                </>
+                            }
+                        />
+                        <Route
+                            path="/search"
                             element={
                                 <>
                                     <NavBar />

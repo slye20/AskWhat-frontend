@@ -26,9 +26,9 @@ const CommentItem: React.FC<Props> = ({ data }) => {
                     error={error}
                     setError={setError}
                     setComment={setComment}
-                    handleSubmit={() => {
+                    handleSubmit={(event) => {
                         setEdit(false);
-                        handleSubmit;
+                        handleSubmit(event);
                     }}
                 />
             ) : (

@@ -1,5 +1,5 @@
 import useForm from "../../hooks/useForm";
-import CustomButton from "../ui/CustomButton";
+import CustomButton from "../UI/CustomButton";
 import apiSignUp from "../../services/SignUpService";
 import { TextField } from "@mui/material";
 import React from "react";

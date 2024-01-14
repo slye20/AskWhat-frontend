@@ -2,7 +2,7 @@ import MainPost from "../components/Forum/MainPost";
 import MakeComment from "../components/Comment/MakeComment";
 import CommentList from "../components/Comment/CommentList";
 import useThreadData from "../hooks/useThreadData";
-import CustomButton from "../components/ui/CustomButton";
+import CustomButton from "../components/UI/CustomButton";
 
 import { useParams } from "react-router-dom";
 import React from "react";

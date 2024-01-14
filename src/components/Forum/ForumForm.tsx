@@ -1,6 +1,6 @@
 import useForumForm from "../../hooks/useForumForm";
-import CustomButton from "../ui/CustomButton";
-import CustomTextField from "../ui/CustomTextField";
+import CustomButton from "../UI/CustomButton";
+import CustomTextField from "../UI/CustomTextField";
 import Thread from "../../types/Thread";
 import React, { FC, FormEvent } from "react";
 import { Checkbox, Autocomplete } from "@mui/material";

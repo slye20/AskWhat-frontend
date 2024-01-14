@@ -1,5 +1,5 @@
-import CustomButton from "../ui/CustomButton";
-import CustomTextField from "../ui/CustomTextField";
+import CustomButton from "../UI/CustomButton";
+import CustomTextField from "../UI/CustomTextField";
 import Comment from "../../types/Comment";
 import React, { ChangeEvent, FC, FormEvent } from "react";
 

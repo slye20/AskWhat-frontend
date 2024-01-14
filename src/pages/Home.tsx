@@ -1,5 +1,5 @@
 import apiReadAllThreads from "../services/ReadAllThreadsService";
-import CustomButton from "../components/ui/CustomButton";
+import CustomButton from "../components/UI/CustomButton";
 import Thread from "../types/Thread";
 import ForumList from "../components/Forum/ForumList";
 import React, { useEffect, useState } from "react";

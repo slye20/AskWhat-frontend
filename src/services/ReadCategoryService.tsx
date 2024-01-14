@@ -1,8 +1,10 @@
-import CategoryData from "../types/CategoryData";
+import Thread from "../types/Thread";
+import Category from "../types/Category";
 
 const apiReadCategory = (
     categoryId: string,
-    setData: (data: CategoryData) => void,
+    setThreads: (threads: Required<Thread>[]) => void,
+    setCategory: (category: Category) => void,
     navigate: (route: string) => void,
 ) => {
     fetch(`http://localhost:3000/categories/${categoryId}`)
@@ -13,7 +15,9 @@ const apiReadCategory = (
             throw new Error("Network response was not ok.");
         })
         .then((res) => {
-            setData(res);
+            console.log(res);
+            setThreads(res.threads);
+            setCategory(res.category);
         })
         .catch(() => navigate("/"));
 };

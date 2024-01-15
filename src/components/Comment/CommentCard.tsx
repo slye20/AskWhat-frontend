@@ -1,9 +1,20 @@
-import Comment from "../../types/Comment";
 import useMenu from "../../hooks/useMenu";
-
-import { Avatar, Box, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import Comment from "../../types/Comment";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Avatar, Box, CardHeader, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import React from "react";
+
+/**
+ * Represents a card component for displaying a comment.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Comment} props.comment - The comment object to be displayed.
+ * @param {string} props.error - Error message to display (if any).
+ * @param {function} props.setError - Function to set the error message.
+ * @param {function} props.setEdit - Function to toggle edit mode for the comment.
+ * @returns {React.ReactElement} A React element representing a comment card.
+ */
 
 type Prop = {
     comment: Comment;

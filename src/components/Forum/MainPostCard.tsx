@@ -4,6 +4,18 @@ import { Box, CardContent, CardHeader, IconButton, Menu, MenuItem, Typography } 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, { FC } from "react";
 
+/**
+ * Represents a component that displays the main post of a thread.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Thread} props.thread - The thread data used for rendering.
+ * @param {string} props.error - An error message to display (if any).
+ * @param {function} props.setError - Function to set the error message.
+ * @param {function} props.setEdit - Function to update if the main post is being edited or not.
+ * @returns {React.ReactElement} A React element that conditionally renders the main post of a thread.
+ */
+
 type Prop = {
     thread: Thread;
     error: string;

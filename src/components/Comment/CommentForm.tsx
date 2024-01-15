@@ -3,6 +3,19 @@ import CustomTextField from "../UI/CustomTextField";
 import Comment from "../../types/Comment";
 import React, { ChangeEvent, FC, FormEvent } from "react";
 
+/**
+ * Represents a card form for editing/creating a comment.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Comment} props.comment - The comment object to be edited or for reference in creating a new one.
+ * @param {string} props.error - An error message to display (if any).
+ * @param {function} props.setError - Function to set the error message.
+ * @param {function} props.setComment - Function to update the comment state.
+ * @param {function} props.handleSubmit - Function to handle form submission.
+ * @returns {React.ReactElement} A React element representing a form for editing or creating a comment.
+ */
+
 type Prop = {
     comment: Comment;
     error: string;

@@ -4,8 +4,18 @@ import CustomButton from "../UI/CustomButton";
 import { TextField } from "@mui/material";
 import React from "react";
 
+/**
+ * Represents a login form component for user authentication.
+ *
+ * This component presents input fields for username and password, and buttons for login and signup.
+ * It utilizes the `useForm` hook for form state management, including handling input changes and form submission.
+ * Upon submission, it calls the `apiLogin` service with the entered credentials.
+ *
+ * @returns {React.ReactElement} A React element representing a login form.
+ */
+
 const LoginForm = () => {
-    const initialValue = { username: "samuel", password: "a1s2d3f4g5" }; //remove
+    const initialValue = { username: "", password: "" };
     const { values: user, errors, setErrors, handleChange, handleSubmit, navigate } = useForm(initialValue);
 
     return (

@@ -6,6 +6,15 @@ import useForumHandler from "../../hooks/useForumHandler";
 import { Card, CardContent } from "@mui/material";
 import React, { useState } from "react";
 
+/**
+ * Represents a component that toggles between displaying the main post of a thread and a form for editing it.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Thread} props.data - The thread data used for initial rendering and editing.
+ * @returns {React.ReactElement} A React element that conditionally renders a `ForumForm` or `MainPostCard` based on the edit state.
+ */
+
 type Prop = {
     data: Thread;
 };

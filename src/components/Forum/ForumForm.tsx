@@ -5,6 +5,19 @@ import Thread from "../../types/Thread";
 import React, { FC, FormEvent } from "react";
 import { Checkbox, Autocomplete } from "@mui/material";
 
+/**
+ * Represents a card form for editing/creating a thread.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Thread} props.thread - The thread object to be edited or for reference in creating a new one.
+ * @param {string} props.error - An error message to display (if any).
+ * @param {function} props.setError - Function to set the error message.
+ * @param {function} props.setThread - Function to update the thread state.
+ * @param {function} props.handleSubmit - Function to handle form submission.
+ * @returns {React.ReactElement} A React element representing a form for editing or creating a thread.
+ */
+
 type Prop = {
     thread: Thread;
     error: string;

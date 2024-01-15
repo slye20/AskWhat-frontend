@@ -1,5 +1,19 @@
 import Thread from "../types/Thread";
 
+/**
+ * Sends a PATCH request to update a thread.
+ *
+ * This function sends a PATCH request to the server to update a thread in the forum. It handles different response statuses:
+ * - If the request is successful (200 OK), it parses and returns the JSON response.
+ * - If the user is unauthorized (401), it redirects to the login page.
+ * - If the request is not acceptable (406) or unprocessable (422), it throws an error with the server's error message.
+ * - For other errors, it throws a generic error message.
+ *
+ * @param {Thread} thread - The thread object to be created.
+ * @param {function} setErrors - Function to set error messages in the parent component.
+ * @param {function} navigate - Function to navigate to different routes (e.g., for redirection to the login page).
+ */
+
 const apiUpdateThread = (thread: Thread, setErrors: (error: string) => void, navigate: (route: string) => void) => {
     fetch(`http://localhost:3000/forum_threads/${thread.id}`, {
         method: "PATCH",

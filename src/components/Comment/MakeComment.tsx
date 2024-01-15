@@ -6,6 +6,19 @@ import useCommentHandler from "../../hooks/useCommentHandler";
 import React, { FormEvent } from "react";
 import { useParams } from "react-router-dom";
 
+/**
+ * Represents a component for creating a new comment.
+ *
+ * This component renders a form for users to input and submit a new comment. It uses the `useCommentHandler` hook
+ * for managing the comment's state and handling the submission process. The `threadId` is retrieved from the URL
+ * parameters to associate the comment with a specific thread.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {function} props.handleNewComment - Function to handle the addition of a new comment to the list.
+ * @returns {React.ReactElement} A React element representing a form for creating a new comment.
+ */
+
 type MakeCommentProps = {
     handleNewComment: (comment: Required<Comment>) => void;
 };

@@ -4,6 +4,16 @@ import apiSignUp from "../../services/SignUpService";
 import { TextField } from "@mui/material";
 import React from "react";
 
+/**
+ * Represents a sign up form component for user authentication.
+ *
+ * This component presents input fields for username, email and password, and buttons for login and signup.
+ * It utilizes the `useForm` hook for form state management, including handling input changes and form submission.
+ * Upon submission, it calls the `apiSignUp` service with the entered credentials.
+ *
+ * @returns {React.ReactElement} A React element representing a login form.
+ */
+
 const SignUpForm = () => {
     const initialValue = { username: "", password: "", email: "" };
     const { values: user, errors, setErrors, handleChange, handleSubmit, navigate } = useForm(initialValue);

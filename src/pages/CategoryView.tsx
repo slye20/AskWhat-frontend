@@ -4,6 +4,16 @@ import ForumList from "../components/Forum/ForumList";
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
+/**
+ * Page component for displaying threads of a specific category.
+ *
+ * This component uses the `useCategoryView` hook to fetch and display data related to a particular category and its threads.
+ * It shows the category name, description, and a list of threads within that category. Also includes a button for additional actions like 'Show More'.
+ *
+ * @component
+ * @returns {React.ReactElement} A React element representing the category view page, including category details and a list of threads.
+ */
+
 const CategoryView = () => {
     const { category, threads } = useCategoryView();
 
@@ -16,7 +26,7 @@ const CategoryView = () => {
                 {category.description}
             </Typography>
             <ForumList threads={threads} />
-            <CustomButton label="Show More" />
+            <CustomButton label="Show More" disabled />
         </Box>
     );
 };

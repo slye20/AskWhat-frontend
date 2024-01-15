@@ -4,6 +4,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
+/**
+ * Represents a card component for displaying a thread.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Required<Thread>} props.thread - The thread object to be displayed.
+ * @returns {React.ReactElement} A React element representing a forum thread card.
+ */
+
 type Props = {
     thread: Required<Thread>;
 };
@@ -28,9 +37,6 @@ const ForumCard: React.FC<Props> = ({ thread }) => {
             }}
         >
             <Grid container spacing={2}>
-                {/* <Grid item sx={{ display: "flex", alignItems: "center" }}>
-                    <img style={{ width: 100, height: 100 }} src="https://mui.com/static/images/grid/complex.jpg" />
-                </Grid> */}
                 <Grid item xs={12} sm container spacing={1}>
                     <Grid item xs container direction="column" spacing={1}>
                         <Grid item xs>

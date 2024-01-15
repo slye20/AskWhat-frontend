@@ -5,6 +5,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { alpha, styled } from "@mui/material/styles";
 
+/**
+ * Represents a dropdown selector for choosing a category.
+ *
+ * This component fetches a list of categories using `apiReadCategoryList` service and displays them in a dropdown menu.
+ * On selecting a category, it navigates to the corresponding category page.
+ *
+ * @returns {React.ReactElement} A React element representing a dropdown selector for categories.
+ */
+
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -24,7 +33,6 @@ const StyledFormControl = styled(FormControl)(({ theme }) => ({
     },
 }));
 
-// remove repeated?
 const CategorySelector = () => {
     const [categories, setCategories] = useState<Category[]>([]);
 

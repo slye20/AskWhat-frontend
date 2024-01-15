@@ -1,3 +1,15 @@
+/**
+ * Sends a POST request to sign up.
+ *
+ * This function sends a POST request to the server to sign up into the forum. It handles different response statuses:
+ * - If the request is successful (200 OK), it adds the jwt key and username into localStorage and redirects to home page.
+ * - If the request is not acceptable (406), it throws an error with the server's error message.
+ * - For other errors, it throws a generic error message.
+ *
+ * @param {{ username: string; password: string }} user - The thread object to be destroyed.
+ * @param {function} setErrors - Function to set error messages in the parent component.
+ * @param {function} navigate - Function to navigate to different routes (e.g., for redirection to the home page).
+ */
 const apiSignUp = (
     user: { username: string; email: string; password: string },
     setErrors: (error: string) => void,

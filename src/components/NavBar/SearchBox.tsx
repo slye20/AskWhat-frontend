@@ -4,6 +4,14 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Represents a search box.
+ *
+ * On enter, it navigates to the corresponding search page, which displays the search results.
+ *
+ * @returns {React.ReactElement} A React element representing a dropdown selector for categories.
+ */
+
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,

@@ -9,6 +9,14 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useNavigate } from "react-router-dom";
 import { Box, Toolbar, IconButton, Menu, Button } from "@mui/material";
 
+/**
+ * Represents a navigation bar.
+ *
+ * It contains a home button, search bar, button to create thread, and button to sign in/sign out
+ *
+ * @returns {React.ReactElement} A React element representing a navigation bar.
+ */
+
 const NavBar = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);

@@ -1,7 +1,6 @@
 // API Endpoints: URLs for your backend services.
 
-export const API_URL = "http://localhost:3000";
-// export const API_URL = "https://askwhat-backend.herokuapp.com";
+export const API_URL = "https://askwhat-backend.herokuapp.com";
 // Endpoints for various operations like POSTS_ENDPOINT = "/posts";, USERS_ENDPOINT = "/users";
 // HTTP Status Codes: Commonly used HTTP status codes for response handling.
 

@@ -1,5 +1,6 @@
 import Thread from "../types/Thread";
 import Category from "../types/Category";
+import { API_URL } from "../constants/constants";
 
 /**
  * Sends a GET request to fetch a the category data and a list of its threads.
@@ -21,7 +22,7 @@ const apiReadCategory = (
     setCategory: (category: Category) => void,
     navigate: (route: string) => void,
 ) => {
-    fetch(`http://localhost:3000/categories/${categoryId}`)
+    fetch(`${API_URL}/categories/${categoryId}`)
         .then((res) => {
             if (res.ok) {
                 return res.json();

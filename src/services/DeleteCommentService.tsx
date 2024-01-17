@@ -1,4 +1,5 @@
 import Comment from "../types/Comment";
+import { API_URL } from "../constants/constants";
 
 /**
  * Sends a DELETE request to delete a comment.
@@ -15,7 +16,7 @@ import Comment from "../types/Comment";
  */
 
 const apiDeleteComment = (comment: Comment, setErrors: (error: string) => void, navigate: (route: string) => void) => {
-    fetch(`http://localhost:3000/comments/${comment.id}`, {
+    fetch(`${API_URL}/comments/${comment.id}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${localStorage.jwt}`,

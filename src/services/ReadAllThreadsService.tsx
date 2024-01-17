@@ -1,4 +1,5 @@
 import Thread from "../types/Thread";
+import { API_URL } from "../constants/constants";
 
 /**
  * Sends a GET request to fetch a list of threads from the server based on a query parameter.
@@ -18,7 +19,7 @@ const apiReadAllThreads = (
     setThreads: (threads: Required<Thread>[]) => void,
     navigate: (route: string) => void,
 ) => {
-    fetch(`http://localhost:3000/search?q=${query}`)
+    fetch(`${API_URL}/search?q=${query}`)
         .then((res) => {
             if (res.ok) {
                 return res.json();

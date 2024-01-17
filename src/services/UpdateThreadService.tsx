@@ -1,4 +1,5 @@
 import Thread from "../types/Thread";
+import { API_URL } from "../constants/constants";
 
 /**
  * Sends a PATCH request to update a thread.
@@ -15,7 +16,7 @@ import Thread from "../types/Thread";
  */
 
 const apiUpdateThread = (thread: Thread, setErrors: (error: string) => void, navigate: (route: string) => void) => {
-    fetch(`http://localhost:3000/forum_threads/${thread.id}`, {
+    fetch(`${API_URL}/forum_threads/${thread.id}`, {
         method: "PATCH",
         headers: {
             Authorization: `Bearer ${localStorage.jwt}`,

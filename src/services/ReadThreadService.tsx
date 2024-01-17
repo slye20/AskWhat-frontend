@@ -1,5 +1,6 @@
 import Comment from "../types/Comment";
 import Thread from "../types/Thread";
+import { API_URL } from "../constants/constants";
 
 /**
  * Sends a GET request to fetch a the thread data and a list of its comments.
@@ -23,7 +24,7 @@ const apiReadThread = (
     navigate: (route: string) => void,
     setIsLoading: (loading: boolean) => void,
 ) => {
-    fetch(`http://localhost:3000/forum_threads/${threadId}`)
+    fetch(`${API_URL}/forum_threads/${threadId}`)
         .then((res) => {
             if (res.ok) {
                 return res.json();

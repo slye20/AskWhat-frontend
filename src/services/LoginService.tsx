@@ -1,3 +1,4 @@
+import { API_URL } from "../constants/constants";
 /**
  * Sends a POST request to log in.
  *
@@ -17,7 +18,7 @@ const apiLogin = (
     setErrors: (error: string) => void,
     navigate: (route: string) => void,
 ) => {
-    fetch("http://localhost:3000/login", {
+    fetch(`${API_URL}/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

@@ -1,3 +1,4 @@
+import { API_URL } from "../constants/constants";
 /**
  * Sends a POST request to sign up.
  *
@@ -15,7 +16,7 @@ const apiSignUp = (
     setErrors: (error: string) => void,
     navigate: (route: string) => void,
 ) => {
-    fetch("http://localhost:3000/signup", {
+    fetch(`${API_URL}/signup`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

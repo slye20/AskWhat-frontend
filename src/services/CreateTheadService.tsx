@@ -1,4 +1,5 @@
 import Thread from "../types/Thread";
+import { API_URL } from "../constants/constants";
 
 /**
  * Sends a POST request to create a new thread.
@@ -15,7 +16,7 @@ import Thread from "../types/Thread";
  */
 
 const apiCreateThread = (thread: Thread, setErrors: (error: string) => void, navigate: (route: string) => void) => {
-    fetch("http://localhost:3000/forum_threads/", {
+    fetch(`${API_URL}/forum_threads/`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${localStorage.jwt}`,

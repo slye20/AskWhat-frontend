@@ -1,4 +1,5 @@
 import Category from "../types/Category";
+import { API_URL } from "../constants/constants";
 
 /**
  * Sends a GET request to fetch a list of categories.
@@ -11,7 +12,7 @@ import Category from "../types/Category";
  */
 
 const apiReadCategoryList = (setCategories: (categories: Category[]) => void) => {
-    fetch(`http://localhost:3000/categories`)
+    fetch(`${API_URL}/categories`)
         .then((res) => {
             if (res.ok) {
                 return res.json();

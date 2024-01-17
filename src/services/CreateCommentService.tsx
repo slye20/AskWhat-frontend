@@ -1,4 +1,5 @@
 import Comment from "../types/Comment";
+import { API_URL } from "../constants/constants";
 
 /**
  * Sends a POST request to create a new comment.
@@ -15,7 +16,7 @@ import Comment from "../types/Comment";
  */
 
 const apiCreateComment = (comment: Comment, setErrors: (error: string) => void, navigate: (route: string) => void) => {
-    fetch(`http://localhost:3000/comments`, {
+    fetch(`${API_URL}/comments`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${localStorage.jwt}`,

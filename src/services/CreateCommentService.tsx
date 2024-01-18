@@ -15,7 +15,12 @@ import { API_URL } from "../constants/constants";
  * @param {function} navigate - Function to navigate to different routes (e.g., for redirection to the login page).
  */
 
-const apiCreateComment = (comment: Comment, setErrors: (error: string) => void, navigate: (route: string) => void) => {
+const apiCreateComment = (
+    comment: Comment,
+    setErrors: (error: string) => void,
+    navigate: (route: string) => void,
+    handleNewComment?: (comment: Required<Comment>) => void,
+) => {
     fetch(`${API_URL}/comments`, {
         method: "POST",
         headers: {
@@ -39,6 +44,17 @@ const apiCreateComment = (comment: Comment, setErrors: (error: string) => void, 
                 });
             } else {
                 throw new Error("An error occurred. Please try again later.");
+            }
+        })
+        .then((res) => {
+            if (handleNewComment) {
+                console.log(res.comment);
+                handleNewComment({
+                    ...comment,
+                    author: String(localStorage.getItem("username")),
+                    created_at: new Date(),
+                    id: res.comment.id,
+                });
             }
         })
         .catch((error) => setErrors(error.message));

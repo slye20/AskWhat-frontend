@@ -29,12 +29,12 @@ const MakeComment: React.FC<MakeCommentProps> = ({ handleNewComment }) => {
     const { comment, setComment, error, setError, handleSubmit } = useCommentHandler({
         initialComment: initialComment,
         saveComment: apiCreateComment,
+        handleNewComment: handleNewComment,
     });
 
     const onSubmit = (event: FormEvent) => {
         handleSubmit(event);
-        handleNewComment({ ...comment, author: localStorage.getItem("username") as string, created_at: new Date() });
-        setComment(initialComment);
+        setComment(initialComment); // This is getting overwrite by the handlesubmit function
     };
 
     return (

@@ -17,17 +17,27 @@ import { useNavigate } from "react-router-dom";
 
 type CommentHandlerProps = {
     initialComment: Comment;
-    saveComment: (comment: Comment, setErrors: (error: string) => void, navigate: (route: string) => void) => void;
+    saveComment: (
+        comment: Comment,
+        setErrors: (error: string) => void,
+        navigate: (route: string) => void,
+        handleNewComment?: (comment: Required<Comment>) => void,
+    ) => void;
+    handleNewComment?: (comment: Required<Comment>) => void;
 };
 
-const useCommentHandler = ({ initialComment, saveComment }: CommentHandlerProps) => {
+const useCommentHandler = ({ initialComment, saveComment, handleNewComment }: CommentHandlerProps) => {
     const [comment, setComment] = useState<Comment>(initialComment);
     const [error, setError] = useState<string>("");
     const navigate = useNavigate();
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        saveComment(comment, setError, navigate);
+        if (handleNewComment) {
+            saveComment(comment, setError, navigate, handleNewComment);
+        } else {
+            saveComment(comment, setError, navigate);
+        }
     };
 
     return { comment, setComment, error, setError, handleSubmit };

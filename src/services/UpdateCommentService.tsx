@@ -41,6 +41,10 @@ const apiUpdateComment = (comment: Comment, setErrors: (error: string) => void, 
                 throw new Error("An error occurred. Please try again later.");
             }
         })
+        .then((res) => {
+            console.log(res.comment);
+            return res;
+        })
         .catch((error) => setErrors(error.message));
 };
 

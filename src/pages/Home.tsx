@@ -20,10 +20,16 @@ const Home: React.FC = () => {
     const query = searchParams.get("q") || "";
     const navigate = useNavigate();
     const [threads, setThreads] = useState<Required<Thread>[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        apiReadAllThreads(query, setThreads, navigate);
+        apiReadAllThreads(query, setThreads, navigate, setIsLoading);
     }, [query]);
+
+    if (isLoading) {
+        // Render a loading indicator
+        return <div>Loading...</div>;
+    }
 
     return (
         <Box sx={{ width: "80vw", margin: "auto", bgcolor: "background.paper" }}>

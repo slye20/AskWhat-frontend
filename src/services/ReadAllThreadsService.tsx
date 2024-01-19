@@ -12,12 +12,14 @@ import { API_URL } from "../constants/constants";
  * @param {string} query - The query string used for filtering threads.
  * @param {function} setThreads - Function to set the threads data in the parent component.
  * @param {function} navigate - Function to navigate to different routes, used here for redirection to the home page in case of errors.
+ * @param {function} setIsLoading - Function to set loading status in the parent component.
  */
 
 const apiReadAllThreads = (
     query: string,
     setThreads: (threads: Required<Thread>[]) => void,
     navigate: (route: string) => void,
+    setIsLoading: (loading: boolean) => void,
 ) => {
     fetch(`${API_URL}/search?q=${query}`)
         .then((res) => {
@@ -26,7 +28,10 @@ const apiReadAllThreads = (
             }
             throw new Error("Network response was not ok.");
         })
-        .then((t) => setThreads(t))
+        .then((t) => {
+            setThreads(t);
+            setIsLoading(false);
+        })
         .catch(() => navigate("/"));
 };
 

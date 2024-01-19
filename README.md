@@ -3,6 +3,10 @@
 Frontend of AskWhat, an online forum for CVWO assignment.
 Built with React.js with TypeScript
 
+Backend Repository: https://github.com/slye20/AskWhat-backend/
+
+Link to deployed app: https://askwhat-1b26934c0d62.herokuapp.com/
+
 Creator: Samuel Lim Yong En
 
 ## Download Instructions

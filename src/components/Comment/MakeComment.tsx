@@ -34,7 +34,7 @@ const MakeComment: React.FC<MakeCommentProps> = ({ handleNewComment }) => {
 
     const onSubmit = (event: FormEvent) => {
         handleSubmit(event);
-        setComment(initialComment); // This is getting overwrite by the handlesubmit function
+        setComment(initialComment);
     };
 
     return (

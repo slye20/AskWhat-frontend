@@ -18,54 +18,8 @@ const theme = createTheme({
     },
 });
 
-// type LoginData = {
-//     user: {
-//         username: string;
-//         password: string;
-//     };
-// };
-
 // FC = function component
 const App: React.FC = () => {
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
-    // const [user, setUser] = useState({});
-
-    // useEffect(() => {
-    //     loginStatus();
-    // }, []); // Run once after the initial render
-
-    // const loginStatus = () => {
-    //     fetch(`http://localhost:3000/logged_in`, { credentials: "include" })
-    //         .then((res) => {
-    //             if (res.ok) {
-    //                 return res.json();
-    //             }
-    //             throw new Error("Network response was not ok.");
-    //         })
-    //         .then((data) => {
-    //             if (data.logged_in) {
-    //                 handleLogin(data);
-    //             } else {
-    //                 handleLogout();
-    //             }
-    //         })
-    //         .catch((error) => console.log("api errors:", error));
-    // };
-
-    // const handleLogin = (data: LoginData) => {
-    //     setIsLoggedIn(true);
-    //     setUser(data.user);
-    // };
-
-    // const handleLogout = () => {
-    //     setIsLoggedIn(false);
-    //     setUser({});
-    // };
-
-    // // remove
-    // isLoggedIn;
-    // user;
-
     return (
         <div className="App">
             <ThemeProvider theme={theme}>

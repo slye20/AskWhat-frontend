@@ -13,6 +13,8 @@ import { API_URL } from "../constants/constants";
  * @param {Comment} comment - The comment object to be created.
  * @param {function} setErrors - Function to set error messages in the parent component.
  * @param {function} navigate - Function to navigate to different routes (e.g., for redirection to the login page).
+ * @param {function} handleNewComment - Optional. Function to handle the new comment data after a successful creation.
+ *                                      It takes a comment object of type Required<Comment> as an argument.
  */
 
 const apiCreateComment = (

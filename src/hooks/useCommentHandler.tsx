@@ -8,10 +8,12 @@ import { useNavigate } from "react-router-dom";
  * This hook initializes with an initial comment state and provides a mechanism to update this state.
  * It also handles the submission of the comment through a provided saveComment function.
  * Errors during submission are managed within the hook, and navigation can be performed after submission.
+ * An optional 'handleNewComment' function can be provided for additional handling after a successful comment creation.
  *
  * @param {CommentHandlerProps} props - The properties required by the hook.
  * @param {Comment} props.initialComment - The initial state of the comment.
  * @param {function} props.saveComment - A api Function to save the comment. This function should handle the logic for creating or updating a comment.
+ * @param {function} props.handleNewComment - Optional. Function to handle the new comment data after a successful creation.
  * @returns {{ comment, setComment, error, setError, handleSubmit }} - An object containing the comment state, functions to update and submit the comment, and any error messages.
  */
 
